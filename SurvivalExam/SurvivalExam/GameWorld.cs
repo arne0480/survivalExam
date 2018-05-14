@@ -1,6 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SurvivalExam
 {
@@ -12,11 +18,34 @@ namespace SurvivalExam
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        static GameWorld instance;
+        public float deltaTime;
+        List<GameObject> gameObjectList = new List<GameObject>();
+
+        GameObject gameObject = new GameObject();
+
+        Rectangle playerRectangle;
+
+        private Texture2D backgroundTexture;
+        private Rectangle backgroundRectangle;
+
+        public static GameWorld Instance //implementering af singleton
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new GameWorld();
+                }
+                return instance;
+            }
+        }
+
         public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            //TEST
+
         }
 
         /// <summary>
@@ -28,6 +57,15 @@ namespace SurvivalExam
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            GameObject go = new GameObject();
+
+            //Spilleren vises på skærmen
+            go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheet", 0, 1.5f)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
+            go.AddComponet(new Animator(go));
+            go.AddComponet(new Transform(go, Vector2.Zero));
+            go.AddComponet(new Player(go));
+            go.transform.Position = new Vector2(100, 200);
+            gameObjectList.Add(go);
 
             base.Initialize();
         }
@@ -42,6 +80,12 @@ namespace SurvivalExam
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            foreach (GameObject go in gameObjectList)
+            {
+                go.LoadContent(Content);
+            }
+           // backgroundTexture = Content.Load<Texture2D>("FullBG1");
+            //backgroundRectangle = new Rectangle(0, 0, backgroundTexture.Width, backgroundTexture.Height);
         }
 
         /// <summary>
@@ -64,7 +108,10 @@ namespace SurvivalExam
                 Exit();
 
             // TODO: Add your update logic here
-
+            foreach (GameObject go in gameObjectList)
+            {
+                go.Update();
+            }
             base.Update(gameTime);
         }
 
@@ -75,9 +122,17 @@ namespace SurvivalExam
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            spriteBatch.Begin();
             // TODO: Add your drawing code here
+           // spriteBatch.Draw(backgroundTexture, backgroundRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
 
+            foreach (GameObject go in gameObjectList) //Fremkalder spilleren
+
+            {
+                go.Draw(spriteBatch);
+            }
+
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
