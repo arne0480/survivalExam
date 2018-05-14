@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SurvivalExam
 {
-    class Idle : Interfaces.IStrategy
+    class Idle : IStrategy
     {
         Animator animator;
         public Idle(Animator animator)

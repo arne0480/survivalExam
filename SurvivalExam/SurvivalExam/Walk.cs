@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SurvivalExam
 {
-    class Walk : Interfaces.IStrategy
+    class Walk : IStrategy
     {
         Animator animator;
         Transform transform;
@@ -40,6 +40,9 @@ namespace SurvivalExam
                 animator.PlayAnimations("WalkDown");
                 translation += new Vector2(0, 1);
             }
+
+
+
             if (keyState.IsKeyDown(Keys.A))
             {
                 currentDirection = DIRECTION.Left;
@@ -51,8 +54,6 @@ namespace SurvivalExam
                 currentDirection = DIRECTION.Right;
                 animator.PlayAnimations("WalkRight");
                 translation += new Vector2(1, 0);
-
-
             }
             gameObject.GetTransform.Translate(translation * GameWorld.Instance.deltaTime * speed);
 

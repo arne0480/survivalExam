@@ -84,7 +84,7 @@ namespace SurvivalExam
             {
                 go.LoadContent(Content);
             }
-           // backgroundTexture = Content.Load<Texture2D>("FullBG1");
+            // backgroundTexture = Content.Load<Texture2D>("FullBG1");
             //backgroundRectangle = new Rectangle(0, 0, backgroundTexture.Width, backgroundTexture.Height);
         }
 
@@ -124,7 +124,7 @@ namespace SurvivalExam
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             // TODO: Add your drawing code here
-           // spriteBatch.Draw(backgroundTexture, backgroundRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
+            // spriteBatch.Draw(backgroundTexture, backgroundRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
 
             foreach (GameObject go in gameObjectList) //Fremkalder spilleren
 

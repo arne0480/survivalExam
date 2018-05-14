@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SurvivalExam
 {
-    class Attack : Interfaces.IStrategy
+    class Attack : IStrategy
     {
         Animator animator;
         public Attack(Animator animator)

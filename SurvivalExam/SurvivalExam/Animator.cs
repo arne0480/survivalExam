@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace SurvivalExam
 {
-    class Animator : Component, Interfaces.IUpdate
+    class Animator : Component, IUpdate
     {
         private SpriteRenderer spriteRenderer;
         private int currentIndex;
         private float timeElapse;
         private float fps;
         private Rectangle[] rectangles = new Rectangle[8];
-        private string animationName;
+        string animationName;
 
         Dictionary<string, Animation> animations = new Dictionary<string, Animation>();
 
@@ -40,6 +40,7 @@ namespace SurvivalExam
         {
             animations.Add(name, animation);
         }
+
         public void PlayAnimations(string animationName)
         {
             if (this.animationName != animationName)

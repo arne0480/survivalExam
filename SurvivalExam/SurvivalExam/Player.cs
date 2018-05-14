@@ -12,10 +12,10 @@ namespace SurvivalExam
 {
     enum DIRECTION { Left, Right, Up, Down };
 
-    class Player : Component, IAnimateable, Interfaces.IUpdate, ILoad
+    class Player : Component, IAnimateable, IUpdate, ILoad
     {
-        private float speed = 10;
-        Interfaces.IStrategy strategy;
+        private float speed = 100;
+        IStrategy strategy;
         bool canPlayerMove = true;
         Animator animator;
         DIRECTION currentDIRECTION;
@@ -32,7 +32,7 @@ namespace SurvivalExam
             KeyboardState keyState = Keyboard.GetState();
             if (canPlayerMove)
             {
-                if (keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.D) || keyState.IsKeyDown(Keys.W) || keyState.IsKeyDown(Keys.S))
+                if (keyState.IsKeyDown(Keys.W) || keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.S) || keyState.IsKeyDown(Keys.D))
                 {
                     if (!(strategy is Walk))
                     {
@@ -51,9 +51,7 @@ namespace SurvivalExam
                 }
             }
             strategy.Execute(ref currentDIRECTION);
-
         }
-
         public void OnAnimationDone(string animationName)
         {
             if (animationName.Contains("Walk") || animationName.Contains("Attack"))

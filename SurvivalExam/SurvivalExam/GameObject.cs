@@ -18,7 +18,6 @@ namespace SurvivalExam
             set { transform = value; }
         }
 
-
         List<Component> componets = new List<Component>();
 
         public GameObject()
@@ -26,12 +25,10 @@ namespace SurvivalExam
             this.transform = new Transform(this, Vector2.Zero);
             AddComponet(transform);
         }
-
         public void AddComponet(Component component)
         {
             componets.Add(component);
         }
-
         public void LoadContent(ContentManager content)
         {
             foreach (Component componet in componets)
@@ -50,13 +47,12 @@ namespace SurvivalExam
         {
             foreach (Component componet in componets)
             {
-                if (componet is Interfaces.IUpdate)
+                if (componet is IUpdate)
                 {
-                    (componet as Interfaces.IUpdate).Update();
+                    (componet as IUpdate).Update();
                 }
             }
         }
-
         public void Draw(SpriteBatch spriteBatch)
         {
             foreach (Component componet in componets)
@@ -68,7 +64,6 @@ namespace SurvivalExam
             }
 
         }
-
         public void OnAnimationDone(string animationName)
         {
             foreach (Component componet in componets)
