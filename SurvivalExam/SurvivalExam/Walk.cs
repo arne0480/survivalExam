@@ -29,7 +29,7 @@ namespace SurvivalExam
 
             KeyboardState keyState = Keyboard.GetState();
 
-            //Den giver Error med W og S.. HOW TO FIX?
+       
             if (keyState.IsKeyDown(Keys.W))
             {
                 currentDirection = DIRECTION.Up;

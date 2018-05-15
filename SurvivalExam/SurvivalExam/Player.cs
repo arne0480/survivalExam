@@ -71,6 +71,9 @@ namespace SurvivalExam
             animator.CreateAnimation("WalkUp", new Animation(8, 0, 0, 80, 80, 10, new Vector2(0, 0)));
             animator.CreateAnimation("WalkDown", new Animation(8, 0, 0, 80, 80, 10, new Vector2(0, 0)));
 
+            animator.CreateAnimation("IdleUp", new Animation(6, 80, 0, 80, 80, 10, new Vector2(0, 0)));
+            animator.CreateAnimation("IdleDown", new Animation(6, 80, 0, 80, 80, 10, new Vector2(0, 0)));
+
             animator.CreateAnimation("AttackRight", new Animation(7, 160, 0, 80, 80, 10, new Vector2(0, 0)));
             animator.CreateAnimation("AttackLeft", new Animation(7, 160, 0, 80, 80, 10, new Vector2(0, 0)));
 
