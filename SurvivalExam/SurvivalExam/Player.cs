@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SurvivalExam
 {
-    enum DIRECTION { Left, Right, Up, Down };
+    enum DIRECTION { Left, Right, Down, Up };
 
     class Player : Component, IAnimateable, IUpdate, ILoad
     {
@@ -19,7 +19,7 @@ namespace SurvivalExam
         IStrategy strategy;
         bool canPlayerMove = true;
         Animator animator;
-        DIRECTION currentDIRECTION;
+        DIRECTION currentDirection;
 
         public Player(GameObject gameObject) : base(gameObject)
         {
@@ -51,7 +51,7 @@ namespace SurvivalExam
                     canPlayerMove = false;
                 }
             }
-            strategy.Execute(ref currentDIRECTION);
+            strategy.Execute(ref currentDirection);
         }
         public void OnAnimationDone(string animationName)
         {
@@ -62,8 +62,8 @@ namespace SurvivalExam
         }
         public void CreatAnimation()
         {
-            animator.CreateAnimation("IdleLeft", new Animation(6, 80, 0, 80, 80, 20, new Vector2(0, 0)));
-            animator.CreateAnimation("IdleRight", new Animation(6, 80, 0, 80, 80, 20, new Vector2(0, 0)));
+            animator.CreateAnimation("IdleLeft", new Animation(6, 80, 0, 80, 80, 10, new Vector2(0, 0)));
+            animator.CreateAnimation("IdleRight", new Animation(6, 80, 0, 80, 80, 10, new Vector2(0, 0)));
 
             animator.CreateAnimation("WalkLeft", new Animation(8, 0, 0, 80, 80, 10, new Vector2(0, 0)));
             animator.CreateAnimation("WalkRight", new Animation(8, 0, 0, 80, 80, 10, new Vector2(0, 0)));
