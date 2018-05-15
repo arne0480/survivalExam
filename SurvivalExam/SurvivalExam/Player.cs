@@ -40,6 +40,7 @@ namespace SurvivalExam
                         strategy = new Walk(gameObject.transform, animator, gameObject, speed);
                     }
                 }
+
                 else
                 {
                     strategy = new Idle(animator);
@@ -62,10 +63,10 @@ namespace SurvivalExam
         }
         public void CreatAnimation()
         {
-            animator.CreateAnimation("IdleLeft", new Animation(6, 80, 0, 80, 80, 10, new Vector2(0, 0)));
+            animator.CreateAnimation("IdleLeft", new Animation(6, 320, 0, 80, 80, 10, new Vector2(0, 0)));
             animator.CreateAnimation("IdleRight", new Animation(6, 80, 0, 80, 80, 10, new Vector2(0, 0)));
 
-            animator.CreateAnimation("WalkLeft", new Animation(8, 0, 0, 80, 80, 10, new Vector2(0, 0)));
+            animator.CreateAnimation("WalkLeft", new Animation(8, 240, 0, 80, 80, 10, new Vector2(0, 0)));
             animator.CreateAnimation("WalkRight", new Animation(8, 0, 0, 80, 80, 10, new Vector2(0, 0)));
 
             animator.CreateAnimation("WalkUp", new Animation(8, 0, 0, 80, 80, 10, new Vector2(0, 0)));
@@ -75,7 +76,7 @@ namespace SurvivalExam
             animator.CreateAnimation("IdleDown", new Animation(6, 80, 0, 80, 80, 10, new Vector2(0, 0)));
 
             animator.CreateAnimation("AttackRight", new Animation(7, 160, 0, 80, 80, 10, new Vector2(0, 0)));
-            animator.CreateAnimation("AttackLeft", new Animation(7, 160, 0, 80, 80, 10, new Vector2(0, 0)));
+            animator.CreateAnimation("AttackLeft", new Animation(7, 400, 0, 80, 80, 10, new Vector2(0, 0)));
 
             //animator.CreateAnimation("DownRight", new Animation(8, 0, 0, 80, 80, 10, new Vector2(0, 0)));
             //animator.CreateAnimation("DownLeft", new Animation(8, 0, 0, 80, 80, 10, new Vector2(0, 0)));
