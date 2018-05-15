@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,23 +15,23 @@ namespace SurvivalExam
         private float timeElapse;
         private float fps;
         private Rectangle[] rectangles = new Rectangle[8];
-        string animationName;
-
+        string animationsName;
         Dictionary<string, Animation> animations = new Dictionary<string, Animation>();
 
         public Animator(GameObject gameObject) : base(gameObject)
         {
-            fps = 10;
+            fps = 5;
             this.spriteRenderer = (SpriteRenderer)gameObject.GetComponets("SpriteRenderer");
         }
         public void Update()
         {
+
             timeElapse += GameWorld.Instance.deltaTime;
             currentIndex = (int)(timeElapse * fps);
 
             if (currentIndex > rectangles.Length - 1)
             {
-                gameObject.OnAnimationDone(animationName);
+                gameObject.OnAnimationDone(animationsName);
                 timeElapse = 0;
                 currentIndex = 0;
             }
@@ -40,20 +41,20 @@ namespace SurvivalExam
         {
             animations.Add(name, animation);
         }
-
-        public void PlayAnimations(string animationName)
+        public void PlayAnimations(string animationsName)
         {
-            if (this.animationName != animationName)
+            if (this.animationsName != animationsName)
             {
-                this.rectangles = animations[animationName].Rectangles;
+                this.rectangles = animations[animationsName].Rectangles;
                 this.spriteRenderer.Rectangle = rectangles[0];
-                this.spriteRenderer.offset = animations[animationName].Offset;
+                this.spriteRenderer.offset = animations[animationsName].Offset;
 
-                this.animationName = animationName;
-                this.fps = animations[animationName].fps;
+                this.animationsName = animationsName;
+                this.fps = animations[animationsName].fps;
 
                 timeElapse = 0;
                 currentIndex = 0;
+
             }
         }
     }
