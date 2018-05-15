@@ -60,7 +60,7 @@ namespace SurvivalExam
             GameObject go = new GameObject();
 
             //Spilleren vises på skærmen
-            go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheet", 0, 3)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
+            go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheet", 0, 2)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
             go.AddComponet(new Animator(go));
             go.AddComponet(new Transform(go, Vector2.Zero));
             go.AddComponet(new Player(go));
