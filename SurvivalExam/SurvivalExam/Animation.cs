@@ -10,6 +10,7 @@ namespace SurvivalExam
     class Animation
     {
         public float fps;
+
         public float Fps
         {
             get { return fps; }
