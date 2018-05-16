@@ -81,20 +81,17 @@ namespace SurvivalExam
             animator.CreateAnimation("AttackUp", new Animation(7, 160, 0, 80, 80, 7, new Vector2(0, 0)));
             animator.CreateAnimation("AttackDown", new Animation(7, 160, 0, 80, 80, 7, new Vector2(0, 0)));
 
-            //animator.CreateAnimation("DownRight", new Animation(8, 0, 0, 80, 80, 10, new Vector2(0, 0)));
-            //animator.CreateAnimation("DownLeft", new Animation(8, 0, 0, 80, 80, 10, new Vector2(0, 0)));
-
-            //animator.CreateAnimation("UpRight", new Animation(8, 0, 0, 80, 80, 10, new Vector2(0, 0)));
-            //animator.CreateAnimation("UpLeft", new Animation(8, 0, 0, 80, 80, 10, new Vector2(0, 0)));
-
             //animator.CreateAnimation("DieLeft", new Animation(3, 1070, 0, 150, 150, 5, Vector2.Zero));
             //animator.CreateAnimation("DieRight", new Animation(3, 1070, 3, 150, 150, 5, Vector2.Zero));
 
         }
         public void LoadContent(ContentManager content)
         {
+
             animator = (Animator)gameObject.GetComponets("Animator");
+
             CreatAnimation();
+
             animator.PlayAnimations("IdleRight");
         }
     }

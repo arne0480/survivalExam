@@ -44,6 +44,7 @@ namespace SurvivalExam
         public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.IsFullScreen = true; //Sætter spillet i fullscreen
             Content.RootDirectory = "Content";
 
         }
@@ -60,12 +61,16 @@ namespace SurvivalExam
             GameObject go = new GameObject();
 
             //Spilleren vises på skærmen
-            go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 2)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
+            go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 1)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
+            
             go.AddComponet(new Animator(go));
             go.AddComponet(new Transform(go, Vector2.Zero));
             go.AddComponet(new Player(go));
+         // go.AddComponet(new Collider(go));
             go.transform.Position = new Vector2(100, 200);
+            
             gameObjectList.Add(go);
+
 
             base.Initialize();
         }
@@ -129,7 +134,6 @@ namespace SurvivalExam
             // spriteBatch.Draw(backgroundTexture, backgroundRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
 
             foreach (GameObject go in gameObjectList) //Fremkalder spilleren
-
             {
                 go.Draw(spriteBatch);
             }
