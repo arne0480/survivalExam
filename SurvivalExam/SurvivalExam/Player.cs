@@ -87,8 +87,11 @@ namespace SurvivalExam
         }
         public void LoadContent(ContentManager content)
         {
+
             animator = (Animator)gameObject.GetComponets("Animator");
+
             CreatAnimation();
+
             animator.PlayAnimations("IdleRight");
         }
     }

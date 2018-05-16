@@ -47,7 +47,7 @@ namespace SurvivalExam
             {
                 this.rectangles = animations[animationsName].Rectangles;
                 this.spriteRenderer.Rectangle = rectangles[0];
-                this.spriteRenderer.offset = animations[animationsName].Offset;
+                this.spriteRenderer.Offset = animations[animationsName].Offset;
 
                 this.animationsName = animationsName;
                 this.fps = animations[animationsName].fps;

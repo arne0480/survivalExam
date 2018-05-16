@@ -18,7 +18,7 @@ namespace SurvivalExam
         string pictureName;
         float layer;
         private float scale;
-        public Vector2 offset;
+        public Vector2 Offset;
         private GameObject gameObject;
 
         public Rectangle Rectangle
@@ -49,7 +49,7 @@ namespace SurvivalExam
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, gameObject.GetTransform.Position, rectangle, Color.White, 0, -offset, scale, SpriteEffects.None, layer);
+            spriteBatch.Draw(sprite, gameObject.GetTransform.Position, rectangle, Color.White, 0, -Offset, scale, SpriteEffects.None, layer);
         }
     }
 }
