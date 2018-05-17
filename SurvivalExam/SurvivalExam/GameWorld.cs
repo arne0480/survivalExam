@@ -13,7 +13,7 @@ namespace SurvivalExam
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class GameWorld : Game
+     class GameWorld : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -21,6 +21,8 @@ namespace SurvivalExam
         static GameWorld instance;
         public float deltaTime;
         List<GameObject> gameObjectList = new List<GameObject>();
+        List<Collider> colliders = new List<Collider>();
+        public List<Collider> getColliders = new List<Collider>();
 
         GameObject gameObject = new GameObject();
 
@@ -62,14 +64,23 @@ namespace SurvivalExam
 
             //Spilleren vises på skærmen
             go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 1)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
-
             go.AddComponet(new Animator(go));
             go.AddComponet(new Transform(go, Vector2.Zero));
             go.AddComponet(new Player(go));
             go.AddComponet(new Collider(go));
             go.transform.Position = new Vector2(100, 200);
-
             gameObjectList.Add(go);
+
+
+            //fremkalder enemy
+            GameObject goEnemy = new GameObject();
+            goEnemy.AddComponet(new SpriteRenderer(goEnemy, "AxeBanditFullSheetV2", 0, 1));
+            goEnemy.AddComponet(new Animator(goEnemy));
+            goEnemy.AddComponet(new Transform(goEnemy, Vector2.Zero));
+            goEnemy.AddComponet(new Enemy(goEnemy));
+            goEnemy.AddComponet(new Collider(goEnemy));
+            goEnemy.transform.Position = new Vector2(300, 200);
+            gameObjectList.Add(goEnemy);
 
 
             base.Initialize();
