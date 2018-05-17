@@ -74,5 +74,15 @@ namespace SurvivalExam
                 }
             }
         }
+        public void OnCollisionStay(Collider other)
+        {
+            foreach (Component componet in componets)
+            {
+                if (componet is ICollisionStay)
+                {
+                    (componet as ICollisionStay).OnCollisionStay(other);
+                }
+            }
+        }
     }
 }

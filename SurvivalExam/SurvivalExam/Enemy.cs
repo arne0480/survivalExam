@@ -8,12 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace SurvivalExam
 {
-    enum DIRECTION { Left, Right, Down, Up };
-
-    class Player : Component, IAnimateable, IUpdate, ILoad, ICollisionStay
+    class Enemy : Component, IAnimateable, IUpdate, ILoad
     {
         private float speed = 100;
         IStrategy strategy;
@@ -21,27 +18,26 @@ namespace SurvivalExam
         Animator animator;
         DIRECTION currentDirection;
 
-        public Player(GameObject gameObject) : base(gameObject)
+        public Enemy(GameObject gameObject) : base(gameObject)
         {
 
 
         }
         public void Update()
         {
-            Collider mycolider = gameObject.GetComponets("Collider") as Collider;
-            mycolider.SetDoCollisionCheck(true);
             Vector2 translation = Vector2.Zero;
 
             KeyboardState keyState = Keyboard.GetState();
             if (canPlayerMove)
             {
-                if (keyState.IsKeyDown(Keys.W) || keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.S) || keyState.IsKeyDown(Keys.D))
+                if (keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.Down) || keyState.IsKeyDown(Keys.Left))
                 {
                     if (!(strategy is Walk))
                     {
                         strategy = new Walk(gameObject.transform, animator, gameObject, speed);
                     }
                 }
+
                 else
                 {
                     strategy = new Idle(animator);
@@ -94,11 +90,6 @@ namespace SurvivalExam
             CreatAnimation();
 
             animator.PlayAnimations("IdleRight");
-        }
-
-        public void OnCollisionStay(Collider other)
-        {
-            other.IsCollideWith = true;
         }
     }
 }
