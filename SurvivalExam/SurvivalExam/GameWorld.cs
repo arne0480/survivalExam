@@ -46,7 +46,7 @@ namespace SurvivalExam
         public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.IsFullScreen = true; //Sætter spillet i fullscreen
+           // graphics.IsFullScreen = true; //Sætter spillet i fullscreen
             Content.RootDirectory = "Content";
 
         }
