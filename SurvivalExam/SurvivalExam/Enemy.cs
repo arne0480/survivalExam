@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SurvivalExam
 {
-    class Enemy : Component, IAnimateable, IUpdate, ILoad
+    class Enemy : Component, IAnimateable, IUpdate, ILoad, ICollisionStay, ICollisionEnter, ICollisionExit
     {
         private float speed = 100;
         IStrategy strategy;
@@ -90,6 +90,19 @@ namespace SurvivalExam
             CreatAnimation();
 
             animator.PlayAnimations("IdleRight");
+        }
+        public void OnCollisionStay(Collider other)
+        {
+           
+
+        }
+        public void OnCollisionExit(Collider other)
+        {
+
+        }
+        public void OnCollisionEnter(Collider other)
+        {
+
         }
     }
 }
