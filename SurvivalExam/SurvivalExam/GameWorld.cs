@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,8 @@ namespace SurvivalExam
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private Song backgroundMusic;
+        
 
         static GameWorld instance;
         public float deltaTime;
@@ -46,7 +49,7 @@ namespace SurvivalExam
         public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.IsFullScreen = true; //Sætter spillet i fullscreen
+         //   graphics.IsFullScreen = true; //Sætter spillet i fullscreen
             Content.RootDirectory = "Content";
 
         }
@@ -101,7 +104,15 @@ namespace SurvivalExam
             {
                 go.LoadContent(Content);
             }
-            // backgroundTexture = Content.Load<Texture2D>("FullBG1");
+
+
+            backgroundMusic = Content.Load<Song>("Cinematic Documentary - AShamaluevMusic");
+            MediaPlayer.Play(backgroundMusic);
+            
+            
+
+
+            //backgroundTexture = Content.Load<Texture2D>("FullBG1");
             //backgroundRectangle = new Rectangle(0, 0, backgroundTexture.Width, backgroundTexture.Height);
         }
 

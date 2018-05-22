@@ -75,6 +75,7 @@
   <ItemGroup>
     <Content Include="Icon.ico" />
     <Content Include="RadicalSurvival.ico" />
+    <Content Include="Sounds\Cinematic Documentary - AShamaluevMusic.mp3" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

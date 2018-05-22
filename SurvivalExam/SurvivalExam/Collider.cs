@@ -23,12 +23,16 @@ namespace SurvivalExam
         public Collider(GameObject gameObject) : base(gameObject)
         {
             GameWorld.Instance.getColliders.Add(this);
-          //  isCollideWith = false;
+            //  isCollideWith = false;
         }
 
         public void SetDoCollisionCheck(bool val)
         {
-         //   doCollisionCheck = val;
+            //   doCollisionCheck = val;
+        }
+        public void DoCollisionCheck()
+        {
+            
         }
 
 
@@ -46,7 +50,7 @@ namespace SurvivalExam
             }
         }
 
-    //    public bool IsCollideWith { get => isCollideWith; set => isCollideWith = value; }
+        //    public bool IsCollideWith { get => isCollideWith; set => isCollideWith = value; }
 
         public void Update()
         {
@@ -103,5 +107,3 @@ namespace SurvivalExam
         }
     }
 }
-
-
