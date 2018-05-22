@@ -108,7 +108,7 @@ namespace SurvivalExam
 
             backgroundMusic = Content.Load<Song>("Cinematic Documentary - AShamaluevMusic");
             MediaPlayer.Play(backgroundMusic);
-            
+            MediaPlayer.IsRepeating = true;
             
 
 
