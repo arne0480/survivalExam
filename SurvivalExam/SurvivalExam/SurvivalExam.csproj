@@ -10,7 +10,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SurvivalExam</RootNamespace>
-    <AssemblyName>SurvivalExam</AssemblyName>
+    <AssemblyName>Radical Survival</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -26,7 +26,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\$(MonoGamePlatform)\$(Platform)\$(Configuration)\</OutputPath>
@@ -35,15 +35,35 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <ApplicationIcon>RadicalSurvival.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Game1.cs" />
+    <Compile Include="Animation.cs" />
+    <Compile Include="Animator.cs" />
+    <Compile Include="Attack.cs" />
+    <Compile Include="Collider.cs" />
+    <Compile Include="Component.cs" />
+    <Compile Include="Enemy.cs" />
+    <Compile Include="GameObject.cs" />
+    <Compile Include="GameWorld.cs" />
+    <Compile Include="Interfaces\ICollisionEnter.cs" />
+    <Compile Include="Idle.cs" />
+    <Compile Include="Interfaces\ICollisionStay.cs" />
+    <Compile Include="Interfaces\ILoad.cs" />
+    <Compile Include="Interfaces\IDraw.cs" />
+    <Compile Include="Interfaces\IAnimateable.cs" />
+    <Compile Include="Interfaces\IStrategy.cs" />
+    <Compile Include="Interfaces\IUpdate.cs" />
+    <Compile Include="Interfaces\ICollisionExit.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpriteRenderer.cs" />
+    <Compile Include="Transform.cs" />
+    <Compile Include="Walk.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -54,6 +74,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
+    <Content Include="RadicalSurvival.ico" />
+    <Content Include="Sounds\Cinematic Documentary - AShamaluevMusic.mp3" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
@@ -61,6 +83,13 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>"$(SolutionDir)SurvivalExam\bin\Windows\x86\NetRevisionTool.exe" /info /patch "$(ProjectDir)"
+</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>"$(SolutionDir)SurvivalExam\bin\Windows\x86\NetRevisionTool.exe" /restore "$(ProjectDir)"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
