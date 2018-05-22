@@ -49,6 +49,7 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameWorld.cs" />
+    <Compile Include="Interfaces\ICollisionEnter.cs" />
     <Compile Include="Idle.cs" />
     <Compile Include="Interfaces\ICollisionStay.cs" />
     <Compile Include="Interfaces\ILoad.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Interfaces\IAnimateable.cs" />
     <Compile Include="Interfaces\IStrategy.cs" />
     <Compile Include="Interfaces\IUpdate.cs" />
+    <Compile Include="Interfaces\ICollisionExit.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

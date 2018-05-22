@@ -60,9 +60,10 @@ namespace SurvivalExam
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            GameObject go = new GameObject();
+
 
             //Spilleren vises på skærmen
+            GameObject go = new GameObject();
             go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 1)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
             go.AddComponet(new Animator(go));
             go.AddComponet(new Transform(go, Vector2.Zero));
@@ -76,9 +77,9 @@ namespace SurvivalExam
             GameObject goEnemy = new GameObject();
             goEnemy.AddComponet(new SpriteRenderer(goEnemy, "AxeBanditFullSheetV2", 0, 1));
             goEnemy.AddComponet(new Animator(goEnemy));
-            goEnemy.AddComponet(new Transform(goEnemy, Vector2.Zero));
             goEnemy.AddComponet(new Enemy(goEnemy));
             goEnemy.AddComponet(new Collider(goEnemy));
+            goEnemy.AddComponet(new Transform(goEnemy, Vector2.Zero));
             goEnemy.transform.Position = new Vector2(300, 200);
             gameObjectList.Add(goEnemy);
 
