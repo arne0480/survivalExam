@@ -13,7 +13,7 @@ namespace SurvivalExam
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-     class GameWorld : Game
+    class GameWorld : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -46,7 +46,7 @@ namespace SurvivalExam
         public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
-           // graphics.IsFullScreen = true; //Sætter spillet i fullscreen
+            graphics.IsFullScreen = true; //Sætter spillet i fullscreen
             Content.RootDirectory = "Content";
 
         }
