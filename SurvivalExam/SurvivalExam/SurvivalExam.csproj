@@ -44,6 +44,7 @@
     <Compile Include="Animation.cs" />
     <Compile Include="Animator.cs" />
     <Compile Include="Attack.cs" />
+    <Compile Include="Camera.cs" />
     <Compile Include="Collider.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Enemy.cs" />
@@ -73,6 +74,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\adventurer-1.2-Sheet.png" />
+    <Content Include="Content\adventurer-Sheet.png" />
+    <Content Include="Content\AxeBanditFullSheet.png" />
+    <Content Include="Content\AxeBanditFullSheetV2.png" />
+    <Content Include="Content\Cinematic Documentary - AShamaluevMusic.mp3" />
+    <Content Include="Content\CollisionTexture.png" />
+    <Content Include="Content\FullBG1.png" />
+    <Content Include="Content\Rectangle.png" />
+    <Content Include="Content\Rectangle1.png" />
     <Content Include="Icon.ico" />
     <Content Include="RadicalSurvival.ico" />
     <Content Include="Sounds\Cinematic Documentary - AShamaluevMusic.mp3" />
@@ -80,6 +90,17 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
+    <None Include="Content\bin\Windows\adventurer-1.2-Sheet.xnb" />
+    <None Include="Content\bin\Windows\adventurer-Sheet.xnb" />
+    <None Include="Content\bin\Windows\AxeBanditFullSheet.xnb" />
+    <None Include="Content\bin\Windows\AxeBanditFullSheetV2.xnb" />
+    <None Include="Content\bin\Windows\FullBG1.xnb" />
+    <None Include="Content\obj\Windows\.mgcontent" />
+    <None Include="Content\obj\Windows\adventurer-1.2-Sheet.mgcontent" />
+    <None Include="Content\obj\Windows\adventurer-Sheet.mgcontent" />
+    <None Include="Content\obj\Windows\AxeBanditFullSheet.mgcontent" />
+    <None Include="Content\obj\Windows\AxeBanditFullSheetV2.mgcontent" />
+    <None Include="Content\obj\Windows\FullBG1.mgcontent" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

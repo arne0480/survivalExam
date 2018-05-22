@@ -33,6 +33,7 @@ namespace SurvivalExam
 
         private Texture2D backgroundTexture;
         private Rectangle backgroundRectangle;
+        private object m_camera;
 
         public static GameWorld Instance //implementering af singleton
         {
@@ -163,6 +164,8 @@ namespace SurvivalExam
 
             spriteBatch.End();
             base.Draw(gameTime);
+
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, m_camera.ViewMatrix);
         }
     }
 }
