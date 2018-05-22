@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +14,18 @@ namespace SurvivalExam
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class GameWorld : Game
+    class GameWorld : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private Song backgroundMusic;
+        
 
         static GameWorld instance;
         public float deltaTime;
         List<GameObject> gameObjectList = new List<GameObject>();
+        List<Collider> colliders = new List<Collider>();
+        public List<Collider> getColliders = new List<Collider>();
 
         GameObject gameObject = new GameObject();
 
@@ -44,7 +49,7 @@ namespace SurvivalExam
         public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.IsFullScreen = true; //Sætter spillet i fullscreen
+         //   graphics.IsFullScreen = true; //Sætter spillet i fullscreen
             Content.RootDirectory = "Content";
 
         }
@@ -58,18 +63,28 @@ namespace SurvivalExam
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            GameObject go = new GameObject();
+
 
             //Spilleren vises på skærmen
+            GameObject go = new GameObject();
             go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 1)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
-            
             go.AddComponet(new Animator(go));
             go.AddComponet(new Transform(go, Vector2.Zero));
             go.AddComponet(new Player(go));
-         // go.AddComponet(new Collider(go));
+            go.AddComponet(new Collider(go));
             go.transform.Position = new Vector2(100, 200);
-            
             gameObjectList.Add(go);
+
+
+            //fremkalder enemy
+            GameObject goEnemy = new GameObject();
+            goEnemy.AddComponet(new SpriteRenderer(goEnemy, "AxeBanditFullSheetV2", 0, 1));
+            goEnemy.AddComponet(new Animator(goEnemy));
+            goEnemy.AddComponet(new Enemy(goEnemy));
+            goEnemy.AddComponet(new Collider(goEnemy));
+            goEnemy.AddComponet(new Transform(goEnemy, Vector2.Zero));
+            goEnemy.transform.Position = new Vector2(300, 200);
+            gameObjectList.Add(goEnemy);
 
 
             base.Initialize();
@@ -89,7 +104,15 @@ namespace SurvivalExam
             {
                 go.LoadContent(Content);
             }
-            // backgroundTexture = Content.Load<Texture2D>("FullBG1");
+
+
+            backgroundMusic = Content.Load<Song>("Cinematic Documentary - AShamaluevMusic");
+            MediaPlayer.Play(backgroundMusic);
+            MediaPlayer.IsRepeating = true;
+            
+
+
+            //backgroundTexture = Content.Load<Texture2D>("FullBG1");
             //backgroundRectangle = new Rectangle(0, 0, backgroundTexture.Width, backgroundTexture.Height);
         }
 

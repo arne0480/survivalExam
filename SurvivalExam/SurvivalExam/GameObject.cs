@@ -74,5 +74,35 @@ namespace SurvivalExam
                 }
             }
         }
+        public void OnCollisionStay(Collider other)
+        {
+            foreach (Component componet in componets)
+            {
+                if (componet is ICollisionStay)
+                {
+                    (componet as ICollisionStay).OnCollisionStay(other);
+                }
+            }
+        }
+        public void OnCollissionEnter(Collider other)
+        {
+            foreach (Component componet in componets)
+            {
+                if (componet is ICollisionEnter)
+                {
+                    (componet as ICollisionEnter).OnCollisionEnter(other);
+                }
+            }
+        }
+        public void OnCollisionExit(Collider other)
+        {
+            foreach (Component componet in componets)
+            {
+                if (componet is ICollisionExit)
+                {
+                    (componet as ICollisionExit).OnCollisionExit(other);
+                }
+            }
+        }
     }
 }

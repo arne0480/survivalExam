@@ -13,7 +13,7 @@ namespace SurvivalExam
 {
     enum DIRECTION { Left, Right, Down, Up };
 
-    class Player : Component, IAnimateable, IUpdate, ILoad
+    class Player : Component, IAnimateable, IUpdate, ILoad, ICollisionStay, ICollisionEnter, ICollisionExit
     {
         private float speed = 100;
         IStrategy strategy;
@@ -28,6 +28,8 @@ namespace SurvivalExam
         }
         public void Update()
         {
+            Collider mycolider = gameObject.GetComponets("Collider") as Collider;
+            mycolider.SetDoCollisionCheck(true);
             Vector2 translation = Vector2.Zero;
 
             KeyboardState keyState = Keyboard.GetState();
@@ -40,7 +42,6 @@ namespace SurvivalExam
                         strategy = new Walk(gameObject.transform, animator, gameObject, speed);
                     }
                 }
-
                 else
                 {
                     strategy = new Idle(animator);
@@ -93,6 +94,20 @@ namespace SurvivalExam
             CreatAnimation();
 
             animator.PlayAnimations("IdleRight");
+        }
+
+        public void OnCollisionStay(Collider other)
+        {
+            //  other.IsCollideWith = true;
+
+        }
+        public void OnCollisionExit(Collider other)
+        {
+
+        }
+        public void OnCollisionEnter(Collider other)
+        {
+
         }
     }
 }
