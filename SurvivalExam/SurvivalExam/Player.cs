@@ -109,5 +109,7 @@ namespace SurvivalExam
         {
 
         }
+
+        public Player(Texture2D)
     }
 }
