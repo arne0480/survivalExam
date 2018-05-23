@@ -17,6 +17,7 @@ namespace SurvivalExam
         Texture2D sprite;
         string pictureName;
         float layer;
+        public Color Color { get; set; } = Color.White;
         private float scale;
         public Vector2 Offset;
         private GameObject gameObject;

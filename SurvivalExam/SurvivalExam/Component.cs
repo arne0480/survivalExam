@@ -9,7 +9,7 @@ namespace SurvivalExam
     abstract class Component
     {
 
-        public GameObject gameObject;
+        public GameObject gameObject { get; private set; }
 
         public GameObject GameObject
 
