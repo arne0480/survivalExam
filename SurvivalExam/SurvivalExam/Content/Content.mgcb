@@ -109,3 +109,9 @@
 /processorParam:TextureFormat=Color
 /build:CollisionTexture.png
 
+#begin Cinematic Documentary - AShamaluevMusic.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Cinematic Documentary - AShamaluevMusic.mp3
+

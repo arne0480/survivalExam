@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,12 @@ namespace SurvivalExam
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-     class GameWorld : Game
+    class GameWorld : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private Song backgroundMusic;
+        
 
         static GameWorld instance;
         public float deltaTime;
@@ -30,6 +33,7 @@ namespace SurvivalExam
 
         private Texture2D backgroundTexture;
         private Rectangle backgroundRectangle;
+        private Camera m_camera;
 
         public static GameWorld Instance //implementering af singleton
         {
@@ -46,7 +50,7 @@ namespace SurvivalExam
         public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.IsFullScreen = true; //Sætter spillet i fullscreen
+         //   graphics.IsFullScreen = true; //Sætter spillet i fullscreen
             Content.RootDirectory = "Content";
 
         }
@@ -60,9 +64,10 @@ namespace SurvivalExam
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            GameObject go = new GameObject();
+
 
             //Spilleren vises på skærmen
+            GameObject go = new GameObject();
             go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 1)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
             go.AddComponet(new Animator(go));
             go.AddComponet(new Transform(go, Vector2.Zero));
@@ -76,9 +81,9 @@ namespace SurvivalExam
             GameObject goEnemy = new GameObject();
             goEnemy.AddComponet(new SpriteRenderer(goEnemy, "AxeBanditFullSheetV2", 0, 1));
             goEnemy.AddComponet(new Animator(goEnemy));
-            goEnemy.AddComponet(new Transform(goEnemy, Vector2.Zero));
             goEnemy.AddComponet(new Enemy(goEnemy));
             goEnemy.AddComponet(new Collider(goEnemy));
+            goEnemy.AddComponet(new Transform(goEnemy, Vector2.Zero));
             goEnemy.transform.Position = new Vector2(300, 200);
             gameObjectList.Add(goEnemy);
 
@@ -100,7 +105,15 @@ namespace SurvivalExam
             {
                 go.LoadContent(Content);
             }
-            // backgroundTexture = Content.Load<Texture2D>("FullBG1");
+
+
+            backgroundMusic = Content.Load<Song>("Cinematic Documentary - AShamaluevMusic");
+            MediaPlayer.Play(backgroundMusic);
+            MediaPlayer.IsRepeating = true;
+            
+
+
+            //backgroundTexture = Content.Load<Texture2D>("FullBG1");
             //backgroundRectangle = new Rectangle(0, 0, backgroundTexture.Width, backgroundTexture.Height);
         }
 
@@ -140,7 +153,7 @@ namespace SurvivalExam
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, m_camera.viewMatrix);
             // TODO: Add your drawing code here
             // spriteBatch.Draw(backgroundTexture, backgroundRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
 
@@ -148,6 +161,8 @@ namespace SurvivalExam
             {
                 go.Draw(spriteBatch);
             }
+
+            //spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, m_camera.ViewMatrix);
 
             spriteBatch.End();
             base.Draw(gameTime);

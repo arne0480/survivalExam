@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,17 +15,24 @@ namespace SurvivalExam
         private Texture2D texture;
         private bool doCollisionCheck;
 
-        private bool isCollideWith;
+
+        private List<Collider> otherCollider = new List<Collider>();
+
+        //private bool isCollideWith;
 
         public Collider(GameObject gameObject) : base(gameObject)
         {
             GameWorld.Instance.getColliders.Add(this);
-            isCollideWith = false;
+            //  isCollideWith = false;
         }
 
         public void SetDoCollisionCheck(bool val)
         {
-            doCollisionCheck = val;
+            //   doCollisionCheck = val;
+        }
+        public void DoCollisionCheck()
+        {
+            
         }
 
 
@@ -44,7 +50,7 @@ namespace SurvivalExam
             }
         }
 
-        public bool IsCollideWith { get => isCollideWith; set => isCollideWith = value; }
+        //    public bool IsCollideWith { get => isCollideWith; set => isCollideWith = value; }
 
         public void Update()
         {
@@ -65,20 +71,22 @@ namespace SurvivalExam
             //Rectangle rightLine = new Rectangle(CollisionBox.X + CollisionBox.Width, CollisionBox.Y, 1, CollisionBox.Height);
             //Rectangle leftLine = new Rectangle(CollisionBox.X, CollisionBox.Y, 1, CollisionBox.Height);
 
-            if (isCollideWith)
-            {
-                spriteBatch.Draw(texture, CollisionBox, null, Color.Yellow, 0, Vector2.Zero, SpriteEffects.None, 1);
-            }
-            else
+            spriteBatch.Draw(texture, CollisionBox, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 1);
+
+            /*if (isCollideWith)
             {
                 spriteBatch.Draw(texture, CollisionBox, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 1);
             }
+            else
+            {
+                spriteBatch.Draw(texture, CollisionBox, null, Color.Yellow, 0, Vector2.Zero, SpriteEffects.None, 1);
+            }*/
+
             //spriteBatch.Draw(texture, bottomLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             //spriteBatch.Draw(texture, rightLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             //spriteBatch.Draw(texture, leftLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-
-
         }
+
         private void CheckCollision()
         {
             if (doCollisionCheck)
@@ -90,6 +98,8 @@ namespace SurvivalExam
                         if (CollisionBox.Intersects(other.CollisionBox))
                         {
                             gameObject.OnCollisionStay(other);
+                            gameObject.OnCollissionEnter(other);
+                            gameObject.OnCollisionExit(other);
                         }
                     }
                 }
@@ -97,5 +107,3 @@ namespace SurvivalExam
         }
     }
 }
-
-
