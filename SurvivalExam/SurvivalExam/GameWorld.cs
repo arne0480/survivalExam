@@ -33,7 +33,7 @@ namespace SurvivalExam
 
         private Texture2D backgroundTexture;
         private Rectangle backgroundRectangle;
-        private object m_camera;
+        private Camera m_camera;
 
         public static GameWorld Instance //implementering af singleton
         {
@@ -153,7 +153,7 @@ namespace SurvivalExam
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, m_camera.viewMatrix);
             // TODO: Add your drawing code here
             // spriteBatch.Draw(backgroundTexture, backgroundRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
 
@@ -162,10 +162,10 @@ namespace SurvivalExam
                 go.Draw(spriteBatch);
             }
 
+            //spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, m_camera.ViewMatrix);
+
             spriteBatch.End();
             base.Draw(gameTime);
-
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, m_camera.ViewMatrix);
         }
     }
 }
