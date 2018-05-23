@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace SurvivalExam
 {
-    class Enemy : Component, IAnimateable, IUpdate, ILoad
+    class Enemy : Component, IAnimateable, IUpdate, ILoad, ICollisionStay, ICollisionEnter, ICollisionExit
     {
         private float speed = 100;
         IStrategy strategy;
-        bool canPlayerMove = true;
+        bool canMove = true;
         Animator animator;
         DIRECTION currentDirection;
 
@@ -28,9 +28,9 @@ namespace SurvivalExam
             Vector2 translation = Vector2.Zero;
 
             KeyboardState keyState = Keyboard.GetState();
-            if (canPlayerMove)
+            if (canMove)
             {
-                if (keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.Down) || keyState.IsKeyDown(Keys.Left))
+                if (keyState.IsKeyDown(Keys.I) || keyState.IsKeyDown(Keys.L) || keyState.IsKeyDown(Keys.K) || keyState.IsKeyDown(Keys.J))
                 {
                     if (!(strategy is Walk))
                     {
@@ -42,11 +42,11 @@ namespace SurvivalExam
                 {
                     strategy = new Idle(animator);
                 }
-                if (keyState.IsKeyDown(Keys.Space))
+                if (keyState.IsKeyDown(Keys.RightShift))
                 {
                     strategy = new Attack(animator);
 
-                    canPlayerMove = false;
+                    canMove = false;
                 }
             }
             strategy.Execute(ref currentDirection);
@@ -55,7 +55,7 @@ namespace SurvivalExam
         {
             if (animationName.Contains("Walk") || animationName.Contains("Attack"))
             {
-                canPlayerMove = true;
+                canMove = true;
             }
         }
         public void CreatAnimation()
@@ -90,6 +90,19 @@ namespace SurvivalExam
             CreatAnimation();
 
             animator.PlayAnimations("IdleRight");
+        }
+        public void OnCollisionStay(Collider other)
+        {
+           
+
+        }
+        public void OnCollisionExit(Collider other)
+        {
+
+        }
+        public void OnCollisionEnter(Collider other)
+        {
+
         }
     }
 }
