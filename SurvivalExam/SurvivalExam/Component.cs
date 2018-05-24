@@ -8,15 +8,7 @@ namespace SurvivalExam
 {
     abstract class Component
     {
-
-        public GameObject gameObject { get; private set; }
-
-        public GameObject GameObject
-
-        {
-            get { return gameObject; }
-            set { gameObject = value; }
-        }
+        public GameObject gameObject { get; set; }
         public Component()
         {
 

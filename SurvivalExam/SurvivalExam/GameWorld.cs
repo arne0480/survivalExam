@@ -72,7 +72,7 @@ namespace SurvivalExam
             go.AddComponet(new Transform(go, Vector2.Zero));
             go.AddComponet(new Player(go));
             go.AddComponet(new Collider(go));
-            go.transform.Position = new Vector2(100, 200);
+            go.transform.position = new Vector2(100, 200);
             gameObjectList.Add(go);
 
 
@@ -83,7 +83,7 @@ namespace SurvivalExam
             goEnemy.AddComponet(new Enemy(goEnemy));
             goEnemy.AddComponet(new Collider(goEnemy));
             goEnemy.AddComponet(new Transform(goEnemy, Vector2.Zero));
-            goEnemy.transform.Position = new Vector2(300, 200);
+            goEnemy.transform.position = new Vector2(300, 200);
             gameObjectList.Add(goEnemy);
 
 

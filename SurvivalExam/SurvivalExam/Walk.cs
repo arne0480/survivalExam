@@ -56,7 +56,7 @@ namespace SurvivalExam
                 animator.PlayAnimations("WalkRight");
                 translation += new Vector2(1, 0);
             }
-            gameObject.GetTransform.Translate(translation * GameWorld.Instance.deltaTime * speed);
+            gameObject.transform.Translate(translation * GameWorld.Instance.deltaTime * speed);
 
         }
     }

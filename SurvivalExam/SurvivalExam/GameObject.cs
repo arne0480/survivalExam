@@ -11,12 +11,7 @@ namespace SurvivalExam
 {
     class GameObject : Component, IAnimateable
     {
-        public Transform transform;
-        public Transform GetTransform
-        {
-            get { return transform; }
-            set { transform = value; }
-        }
+        public Transform transform { get; set; }
 
         List<Component> componets = new List<Component>();
 

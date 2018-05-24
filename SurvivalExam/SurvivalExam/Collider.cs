@@ -27,8 +27,8 @@ namespace SurvivalExam
             {
                 return new Rectangle
                     (
-                        (int)(gameObject.transform.Position.X + spriteRenderer.Offset.X),
-                        (int)(gameObject.transform.Position.Y + spriteRenderer.Offset.Y),
+                        (int)(gameObject.transform.position.X + spriteRenderer.Offset.X),
+                        (int)(gameObject.transform.position.Y + spriteRenderer.Offset.Y),
                         spriteRenderer.Rectangle.Width,
                         spriteRenderer.Rectangle.Height
                     );
@@ -53,8 +53,6 @@ namespace SurvivalExam
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
-
             Rectangle topLine = new Rectangle(CollisionBox.X, CollisionBox.Y, CollisionBox.Width, 1);
             Rectangle bottomLine = new Rectangle(CollisionBox.X, CollisionBox.Y + CollisionBox.Height, CollisionBox.Width, 1);
             Rectangle rightLine = new Rectangle(CollisionBox.X + CollisionBox.Width, CollisionBox.Y, 1, CollisionBox.Height);
