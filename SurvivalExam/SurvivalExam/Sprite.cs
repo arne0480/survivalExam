@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SurvivalExam
 {
-    class Sprite : Component
+    public class Sprite : Component
     {
         protected Texture2D _texture;
 
@@ -17,8 +17,9 @@ namespace SurvivalExam
 
         public Rectangle Rectangle
         {
-            get { return new Rectangle[((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height); }
+            get { return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height); }
         }
+
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, Position, Color.White);

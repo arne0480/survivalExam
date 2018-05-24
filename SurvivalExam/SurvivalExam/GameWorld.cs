@@ -33,7 +33,16 @@ namespace SurvivalExam
 
         private Texture2D backgroundTexture;
         private Rectangle backgroundRectangle;
-        private Camera m_camera;
+
+        private Camera _camera;
+
+        private List<Component> _components;
+
+        private Player _player;
+
+        public static int ScreenHeight;
+
+        public static int ScreenWidth;
 
         public static GameWorld Instance //implementering af singleton
         {
@@ -87,6 +96,9 @@ namespace SurvivalExam
             goEnemy.transform.Position = new Vector2(300, 200);
             gameObjectList.Add(goEnemy);
 
+            ScreenHeight = graphics.PreferredBackBufferHeight;
+
+            ScreenWidth = graphics.PreferredBackBufferWidth;
 
             base.Initialize();
         }
@@ -110,7 +122,17 @@ namespace SurvivalExam
             backgroundMusic = Content.Load<Song>("Cinematic Documentary - AShamaluevMusic");
             MediaPlayer.Play(backgroundMusic);
             MediaPlayer.IsRepeating = true;
-            
+
+            _camera = new Camera();
+
+            _player = new Player(Content.Load<Texture2D>("AxeBanditFullSheetV2"));
+
+            _components = new List<Component>()
+      {
+        new Sprite(Content.Load<Texture2D>("FullBG1")),
+        _player,
+      };
+
 
 
             //backgroundTexture = Content.Load<Texture2D>("FullBG1");
@@ -143,6 +165,13 @@ namespace SurvivalExam
             {
                 go.Update();
             }
+
+
+            foreach (var component in _components)
+                component.Update(gameTime);
+
+            _camera.Follow(_player);
+
             base.Update(gameTime);
         }
 
@@ -153,7 +182,7 @@ namespace SurvivalExam
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, m_camera.viewMatrix);
+            spriteBatch.Begin(transformMatrix: _camera.Transform);
             // TODO: Add your drawing code here
             // spriteBatch.Draw(backgroundTexture, backgroundRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
 
@@ -162,7 +191,13 @@ namespace SurvivalExam
                 go.Draw(spriteBatch);
             }
 
-            //spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, m_camera.ViewMatrix);
+
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            spriteBatch.Begin(transformMatrix: _camera.Transform);
+
+            foreach (var component in _components)
+                component.Draw(gameTime, spriteBatch);
 
             spriteBatch.End();
             base.Draw(gameTime);
