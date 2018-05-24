@@ -29,7 +29,7 @@ namespace SurvivalExam
         public void Update()
         {
             Collider mycolider = gameObject.GetComponets("Collider") as Collider;
-            mycolider.SetDoCollisionCheck(true);
+            //mycolider.SetDoCollisionCheck(true);
             Vector2 translation = Vector2.Zero;
 
             KeyboardState keyState = Keyboard.GetState();
@@ -98,16 +98,17 @@ namespace SurvivalExam
 
         public void OnCollisionStay(Collider other)
         {
-            //  other.IsCollideWith = true;
-
+            //(other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
         }
-        public void OnCollisionExit(Collider other)
-        {
 
-        }
         public void OnCollisionEnter(Collider other)
         {
+            (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
+        }
 
+        public void OnCollisionExit(Collider other)
+        {
+            (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
         }
     }
 }

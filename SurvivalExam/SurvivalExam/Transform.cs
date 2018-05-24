@@ -9,16 +9,12 @@ namespace SurvivalExam
 {
     class Transform : Component
     {
-        private Vector2 position;
+      //  private Vector2 position;
 
 
-        public Vector2 Position
-        {
-            get { return position; }
-            set { position = value; }
-        }
+        public Vector2 position { get; set; }
 
-        public Transform(GameObject gameObject, Vector2 position)
+        public Transform(GameObject gameObject, Vector2 position) : base(gameObject)
         {
             this.position = position;
         }
