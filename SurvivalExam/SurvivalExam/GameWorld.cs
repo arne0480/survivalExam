@@ -67,12 +67,15 @@ namespace SurvivalExam
 
             //Spilleren vises på skærmen
             GameObject go = new GameObject();
+            go.AddComponet(new Collider(go));
             go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 1)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
+
             go.AddComponet(new Animator(go));
             go.AddComponet(new Transform(go, Vector2.Zero));
             go.AddComponet(new Player(go));
-            go.AddComponet(new Collider(go));
+            
             go.transform.position = new Vector2(100, 200);
+           
             gameObjectList.Add(go);
 
 
@@ -98,13 +101,11 @@ namespace SurvivalExam
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
             // TODO: use this.Content to load your game content here
             foreach (GameObject go in gameObjectList)
             {
                 go.LoadContent(Content);
             }
-
 
             backgroundMusic = Content.Load<Song>("Cinematic Documentary - AShamaluevMusic");
             MediaPlayer.Play(backgroundMusic);

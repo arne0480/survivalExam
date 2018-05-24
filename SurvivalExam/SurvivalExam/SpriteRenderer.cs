@@ -42,8 +42,7 @@ namespace SurvivalExam
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.Draw(sprite, gameObject.transform.position, rectangle, Color.White, 0, -Offset, scale, SpriteEffects.None, layer);
-            spriteBatch.Draw(Sprite, gameObject.transform.position + Offset, Rectangle, Color, 0, Vector2.Zero, 1, SpriteEffects.None, layer);
+           spriteBatch.Draw(Sprite, gameObject.transform.position + Offset, Rectangle, Color, 0, Vector2.Zero, 1, SpriteEffects.None, layer);
 
         }
     }

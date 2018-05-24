@@ -98,7 +98,7 @@ namespace SurvivalExam
 
         public void OnCollisionStay(Collider other)
         {
-            (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
+            //(other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
         }
 
         public void OnCollisionEnter(Collider other)
