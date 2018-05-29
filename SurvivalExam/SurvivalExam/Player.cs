@@ -110,10 +110,10 @@ namespace SurvivalExam
 
         }
 
-        public Player(Texture2D texture) : base(texture)
-        {
+        //public Player(Texture2D texture) : base(texture)
+        //{
 
-        }
+        //}
         
     }
 }

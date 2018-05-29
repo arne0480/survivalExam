@@ -19,7 +19,8 @@ namespace SurvivalExam
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private Song backgroundMusic;
-        
+        private HealthBar healthBar;
+
 
         static GameWorld instance;
         public float deltaTime;
@@ -122,16 +123,17 @@ namespace SurvivalExam
             backgroundMusic = Content.Load<Song>("Cinematic Documentary - AShamaluevMusic");
             MediaPlayer.Play(backgroundMusic);
             MediaPlayer.IsRepeating = true;
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            healthBar = new HealthBar(Content);
 
             _camera = new Camera();
 
             _player = new Player(Content.Load<Texture2D>("AxeBanditFullSheetV2"));
 
-            _components = new List<Component>()
-      {
-        new Sprite(Content.Load<Texture2D>("FullBG1")),
-        _player,
-      };
+            _components = new List<Component>();
+
+            new Sprite(Content.Load<Texture2D>("FullBG1")), _player;
+
 
 
 
@@ -190,6 +192,8 @@ namespace SurvivalExam
             {
                 go.Draw(spriteBatch);
             }
+
+            healthBar.Draw(spriteBatch);
 
 
             GraphicsDevice.Clear(Color.CornflowerBlue);

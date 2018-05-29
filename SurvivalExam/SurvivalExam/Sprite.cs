@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SurvivalExam
 {
-    public class Sprite : Component
+    abstract class Sprite : Component
     {
         protected Texture2D _texture;
 
