@@ -11,7 +11,8 @@ namespace SurvivalExam
 {
     class GameObject : Component, IAnimateable
     {
-        public Transform transform { get; set; }
+
+        public Transform transform;
 
         List<Component> componets = new List<Component>();
 
@@ -81,6 +82,7 @@ namespace SurvivalExam
         }
         public void OnCollissionEnter(Collider other)
         {
+            
             foreach (Component componet in componets)
             {
                 if (componet is ICollisionEnter)

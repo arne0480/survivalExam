@@ -18,7 +18,8 @@ namespace SurvivalExam
 
 
 
-        public bool CheckCollisions { get; set; }
+        public bool CheckCollisions
+        { get; set; }
 
 
         public Rectangle CollisionBox

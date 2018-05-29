@@ -14,7 +14,10 @@ namespace SurvivalExam
         Animator animator;
         Transform transform;
         GameObject gameObject;
+        Player player;
+        public GameObject other;
         float speed;
+
         public Walk(Transform transform, Animator animator, GameObject gameObject, float speed)
         {
             this.transform = transform;
@@ -29,7 +32,7 @@ namespace SurvivalExam
 
             KeyboardState keyState = Keyboard.GetState();
 
-       
+
             if (keyState.IsKeyDown(Keys.W))
             {
                 currentDirection = DIRECTION.Up;
@@ -42,8 +45,6 @@ namespace SurvivalExam
                 animator.PlayAnimations("WalkDown");
                 translation += new Vector2(0, 1);
             }
-
-
             if (keyState.IsKeyDown(Keys.A))
             {
                 currentDirection = DIRECTION.Left;
@@ -56,8 +57,17 @@ namespace SurvivalExam
                 animator.PlayAnimations("WalkRight");
                 translation += new Vector2(1, 0);
             }
-            gameObject.transform.Translate(translation * GameWorld.Instance.deltaTime * speed);
 
+
+            //other = player.other;
+            //if (other != null ) //spiller collidere med other
+            //{
+            //    if (Vector2.Distance(gameObject.transform.position, other.transform.position) < (Vector2.Distance(other.transform.position + translation, other.transform.position)))
+            //    {
+            //        translation = Vector2.Zero;
+            //    }
+            //}
+            gameObject.transform.Translate(translation * GameWorld.Instance.deltaTime * speed);
         }
     }
 }
