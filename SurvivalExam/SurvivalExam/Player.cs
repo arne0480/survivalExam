@@ -21,6 +21,8 @@ namespace SurvivalExam
         Animator animator;
         DIRECTION currentDirection;
 
+        public GameObject other;
+
         public Player(GameObject gameObject) : base(gameObject)
         {
 
@@ -98,12 +100,12 @@ namespace SurvivalExam
 
         public void OnCollisionStay(Collider other)
         {
-            //(other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
+       //   (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
         }
 
         public void OnCollisionEnter(Collider other)
         {
-            (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
+            (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.DarkRed;
         }
 
         public void OnCollisionExit(Collider other)
