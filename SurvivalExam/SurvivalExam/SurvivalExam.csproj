@@ -50,6 +50,7 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameWorld.cs" />
+    <Compile Include="HealthBar.cs" />
     <Compile Include="Interfaces\ICollisionEnter.cs" />
     <Compile Include="Idle.cs" />
     <Compile Include="Interfaces\ICollisionStay.cs" />
@@ -81,6 +82,8 @@
     <Content Include="Content\Cinematic Documentary - AShamaluevMusic.mp3" />
     <Content Include="Content\CollisionTexture.png" />
     <Content Include="Content\FullBG1.png" />
+    <Content Include="Content\Health bar farve.png" />
+    <Content Include="Content\Health bar.png" />
     <Content Include="Content\Rectangle.png" />
     <Content Include="Content\Rectangle1.png" />
     <Content Include="Icon.ico" />

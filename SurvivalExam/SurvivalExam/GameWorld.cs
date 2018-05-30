@@ -19,7 +19,8 @@ namespace SurvivalExam
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private Song backgroundMusic;
-        
+        private HealthBar healthBar;
+
 
         static GameWorld instance;
         public float deltaTime;
@@ -33,7 +34,8 @@ namespace SurvivalExam
 
         private Texture2D backgroundTexture;
         private Rectangle backgroundRectangle;
-        private Camera m_camera;
+
+       
 
         public static GameWorld Instance //implementering af singleton
         {
@@ -88,6 +90,7 @@ namespace SurvivalExam
             gameObjectList.Add(goEnemy);
 
 
+
             base.Initialize();
         }
 
@@ -110,7 +113,12 @@ namespace SurvivalExam
             backgroundMusic = Content.Load<Song>("Cinematic Documentary - AShamaluevMusic");
             MediaPlayer.Play(backgroundMusic);
             MediaPlayer.IsRepeating = true;
-            
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            healthBar = new HealthBar(Content);
+
+
+
+
 
 
             //backgroundTexture = Content.Load<Texture2D>("FullBG1");
@@ -143,6 +151,10 @@ namespace SurvivalExam
             {
                 go.Update();
             }
+
+
+
+
             base.Update(gameTime);
         }
 
@@ -153,7 +165,6 @@ namespace SurvivalExam
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, m_camera.viewMatrix);
             // TODO: Add your drawing code here
             // spriteBatch.Draw(backgroundTexture, backgroundRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
 
@@ -162,7 +173,13 @@ namespace SurvivalExam
                 go.Draw(spriteBatch);
             }
 
-            //spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, m_camera.ViewMatrix);
+            healthBar.Draw(spriteBatch);
+
+
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+
+
+
 
             spriteBatch.End();
             base.Draw(gameTime);
