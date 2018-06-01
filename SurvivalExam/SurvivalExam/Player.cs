@@ -20,7 +20,7 @@ namespace SurvivalExam
         bool canPlayerMove = true;
         Animator animator;
         DIRECTION currentDirection;
-
+        Vector2 translation = Vector2.Zero;
         public GameObject other;
 
         public Player(GameObject gameObject) : base(gameObject)
@@ -106,6 +106,16 @@ namespace SurvivalExam
         public void OnCollisionEnter(Collider other)
         {
             (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.DarkRed;
+
+            //if (other != null) //spiller collidere med other
+            //{
+            //    if (Vector2.Distance(gameObject.transform.position - other.gameObject.transform.position))
+            //    {
+            //        translation = Vector2.Zero;
+            //    }
+
+            //}
+
         }
 
         public void OnCollisionExit(Collider other)

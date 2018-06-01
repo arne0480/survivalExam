@@ -19,7 +19,7 @@ namespace SurvivalExam
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private Song backgroundMusic;
-        
+
 
         static GameWorld instance;
         public float deltaTime;
@@ -49,7 +49,7 @@ namespace SurvivalExam
         public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
-         //   graphics.IsFullScreen = true; //Sætter spillet i fullscreen
+            graphics.IsFullScreen = true; //Sætter spillet i fullscreen
             Content.RootDirectory = "Content";
 
         }
@@ -68,12 +68,12 @@ namespace SurvivalExam
             //Spilleren vises på skærmen
             GameObject go = new GameObject();
             go.AddComponet(new Collider(go));
-            go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 1)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
+            go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 2)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
             go.AddComponet(new Animator(go));
             go.AddComponet(new Transform(go, Vector2.Zero));
             go.AddComponet(new Player(go));
             go.transform.position = new Vector2(100, 200);
-           
+
             gameObjectList.Add(go);
 
 
@@ -108,11 +108,11 @@ namespace SurvivalExam
             backgroundMusic = Content.Load<Song>("Cinematic Documentary - AShamaluevMusic");
             MediaPlayer.Play(backgroundMusic);
             MediaPlayer.IsRepeating = true;
-            
 
 
-            //backgroundTexture = Content.Load<Texture2D>("FullBG1");
-            //backgroundRectangle = new Rectangle(0, 0, backgroundTexture.Width, backgroundTexture.Height);
+
+            backgroundTexture = Content.Load<Texture2D>("FullbackgroundV2");
+            backgroundRectangle = new Rectangle(0, -300, backgroundTexture.Width, backgroundTexture.Height);
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace SurvivalExam
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             // TODO: Add your drawing code here
-            // spriteBatch.Draw(backgroundTexture, backgroundRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(backgroundTexture, backgroundRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
 
             foreach (GameObject go in gameObjectList) //Fremkalder spilleren
             {
