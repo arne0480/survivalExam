@@ -19,7 +19,8 @@ namespace SurvivalExam
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private Song backgroundMusic;
-        
+        private HealthBar healthBar;
+
 
         static GameWorld instance;
         public float deltaTime;
@@ -33,6 +34,8 @@ namespace SurvivalExam
 
         Player player;
 
+
+       
 
         public static GameWorld Instance //implementering af singleton
         {
@@ -88,6 +91,7 @@ namespace SurvivalExam
             gameObjectList.Add(goEnemy);
 
 
+
             base.Initialize();
         }
 
@@ -108,7 +112,12 @@ namespace SurvivalExam
             backgroundMusic = Content.Load<Song>("Cinematic Documentary - AShamaluevMusic");
             MediaPlayer.Play(backgroundMusic);
             MediaPlayer.IsRepeating = true;
-            
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            healthBar = new HealthBar(Content);
+
+
+
+
 
 
 
@@ -140,6 +149,10 @@ namespace SurvivalExam
             {
                 go.Update();
             }
+
+
+
+
             base.Update(gameTime);
         }
 
@@ -150,12 +163,19 @@ namespace SurvivalExam
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin();
             // TODO: Add your drawing code here
             foreach (GameObject go in gameObjectList) //Fremkalder spilleren
             {
                 go.Draw(spriteBatch);
             }
+
+            healthBar.Draw(spriteBatch);
+
+
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+
+
+
 
             spriteBatch.End();
             base.Draw(gameTime);
