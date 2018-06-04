@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 using SurvivalExamh;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,31 @@ namespace SurvivalExam
         DIRECTION currentDirection;
 
         public GameObject other;
+
+        Texture2D texture;
+        public Rectangle rectangle;
+        Vector2 position;
+        public int health;
+
+        public Player(Texture2D newTexture, Vector2 newPosition, int newHealth)
+        {
+            texture = newTexture;
+            position = newPosition;
+
+            health = newHealth;
+        }
+
+        public void Update()
+        {
+            rectangle = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            if (health > 0)
+                spriteBatch.Draw(texture, rectangle, Color.White);
+        }
+
 
         public Player(GameObject gameObject) : base(gameObject)
         {

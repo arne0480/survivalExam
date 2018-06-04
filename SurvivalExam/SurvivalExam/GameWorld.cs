@@ -31,8 +31,8 @@ namespace SurvivalExam
 
         Rectangle playerRectangle;
 
-        private Texture2D backgroundTexture;
-        private Rectangle backgroundRectangle;
+        Player player;
+
 
         public static GameWorld Instance //implementering af singleton
         {
@@ -71,7 +71,7 @@ namespace SurvivalExam
             go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 1)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
             go.AddComponet(new Animator(go));
             go.AddComponet(new Transform(go, Vector2.Zero));
-            go.AddComponet(new Player(go));
+            go.AddComponet(new Player(go)); 
             go.transform.position = new Vector2(100, 200);
            
             gameObjectList.Add(go);
@@ -111,8 +111,7 @@ namespace SurvivalExam
             
 
 
-            //backgroundTexture = Content.Load<Texture2D>("FullBG1");
-            //backgroundRectangle = new Rectangle(0, 0, backgroundTexture.Width, backgroundTexture.Height);
+
         }
 
         /// <summary>
@@ -153,8 +152,6 @@ namespace SurvivalExam
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             // TODO: Add your drawing code here
-            // spriteBatch.Draw(backgroundTexture, backgroundRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
-
             foreach (GameObject go in gameObjectList) //Fremkalder spilleren
             {
                 go.Draw(spriteBatch);
