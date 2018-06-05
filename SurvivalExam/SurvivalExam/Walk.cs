@@ -14,8 +14,7 @@ namespace SurvivalExam
         Animator animator;
         Transform transform;
         GameObject gameObject;
-        Player player;
-        public GameObject other;
+       
         float speed;
 
         public Walk(Transform transform, Animator animator, GameObject gameObject, float speed)

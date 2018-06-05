@@ -30,7 +30,7 @@ namespace SurvivalExam
 
         GameObject gameObject = new GameObject();
 
-        Rectangle playerRectangle;
+    
 
         private Texture2D backgroundTexture;
         private Rectangle backgroundRectangle;

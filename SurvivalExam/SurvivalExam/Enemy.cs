@@ -70,7 +70,13 @@ namespace SurvivalExam
 
             animator.PlayAnimations("IdleRight");
         }
-
+        public void OnAnimationDone(string animationName)
+        {
+            if (animationName.Contains("Walk"))
+            {
+                
+            }
+        }
         public void OnCollisionExit(Collider other)
         {
             (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
