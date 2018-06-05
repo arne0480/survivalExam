@@ -17,6 +17,7 @@ namespace SurvivalExam
     class GameWorld : Game
     {
         GraphicsDeviceManager graphics;
+
         SpriteBatch spriteBatch;
         private Song backgroundMusic;
 
@@ -33,6 +34,8 @@ namespace SurvivalExam
 
         private Texture2D backgroundTexture;
         private Rectangle backgroundRectangle;
+        Camera camera;
+        
 
         public static GameWorld Instance //implementering af singleton
         {
@@ -51,7 +54,6 @@ namespace SurvivalExam
             graphics = new GraphicsDeviceManager(this);
             graphics.IsFullScreen = true; //Sætter spillet i fullscreen
             Content.RootDirectory = "Content";
-
         }
 
         /// <summary>
@@ -72,7 +74,9 @@ namespace SurvivalExam
             go.AddComponet(new Animator(go));
             go.AddComponet(new Transform(go, Vector2.Zero));
             go.AddComponet(new Player(go));
-            go.transform.position = new Vector2(100, 200);
+          //  go.AddComponet(new Camera(viewport));
+            go.transform.position = new Vector2(350, 200);
+            go.Tag = "Player";
 
             gameObjectList.Add(go);
 
@@ -84,10 +88,11 @@ namespace SurvivalExam
             goEnemy.AddComponet(new Enemy(goEnemy));
             goEnemy.AddComponet(new Collider(goEnemy));
             goEnemy.AddComponet(new Transform(goEnemy, Vector2.Zero));
-            goEnemy.transform.position = new Vector2(300, 200);
+            goEnemy.transform.position = new Vector2(50, 50);
+            goEnemy.Tag = "Enemy";
             gameObjectList.Add(goEnemy);
 
-
+        
             base.Initialize();
         }
 
@@ -110,7 +115,6 @@ namespace SurvivalExam
             MediaPlayer.IsRepeating = true;
 
 
-
             backgroundTexture = Content.Load<Texture2D>("FullbackgroundV2");
             backgroundRectangle = new Rectangle(0, -300, backgroundTexture.Width, backgroundTexture.Height);
         }
@@ -131,6 +135,7 @@ namespace SurvivalExam
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -141,6 +146,9 @@ namespace SurvivalExam
             {
                 go.Update();
             }
+
+            //camera.UpdateCamera();
+
             base.Update(gameTime);
         }
 
@@ -163,5 +171,11 @@ namespace SurvivalExam
             spriteBatch.End();
             base.Draw(gameTime);
         }
+
+        public GameObject FindGameObjectWithTag(string tag)
+        {
+            return gameObjectList.Find(x => x.Tag == tag);
+        }
+
     }
 }

@@ -58,15 +58,6 @@ namespace SurvivalExam
                 translation += new Vector2(1, 0);
             }
 
-
-            //other = player.other;
-            /*if (other != null) //spiller collidere med other
-            {
-                if (Vector2.Distance(gameObject.transform.position, other.transform.position) < (Vector2.Distance(other.transform.position + translation, other.transform.position)))
-                {
-                    translation = Vector2.Zero;
-                }
-            }*/
             gameObject.transform.Translate(translation * GameWorld.Instance.deltaTime * speed);
         }
     }

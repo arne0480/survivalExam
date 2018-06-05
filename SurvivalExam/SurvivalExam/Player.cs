@@ -23,6 +23,8 @@ namespace SurvivalExam
         Vector2 translation = Vector2.Zero;
         public GameObject other;
 
+        Collider mycolider;
+
         public Player(GameObject gameObject) : base(gameObject)
         {
 
@@ -30,7 +32,7 @@ namespace SurvivalExam
         }
         public void Update()
         {
-            Collider mycolider = gameObject.GetComponets("Collider") as Collider;
+            mycolider = gameObject.GetComponets("Collider") as Collider;
             //mycolider.SetDoCollisionCheck(true);
             Vector2 translation = Vector2.Zero;
 
@@ -100,27 +102,39 @@ namespace SurvivalExam
 
         public void OnCollisionStay(Collider other)
         {
-       //   (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
+            //   (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
         }
 
         public void OnCollisionEnter(Collider other)
         {
             (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.DarkRed;
 
-            //if (other != null) //spiller collidere med other
+
+            //switch (switch_on)
             //{
-            //    if (Vector2.Distance(gameObject.transform.position - other.gameObject.transform.position))
-            //    {
-            //        translation = Vector2.Zero;
-            //    }
+            //    case LeftCollision:
+
+            //break;
 
             //}
+
+            //gameObject.transform.Translate(new Vector2((mycolider.CollisionBox.Width - other.gameObject.transform.position.X), 0)); //Venstre Collision
+            gameObject.transform.Translate(new Vector2((mycolider.CollisionBox.Height - other.gameObject.transform.position.Y), 0)); //burde være bund collision - Men er venstre collision
+
+
+
+            //gameObject.transform.Translate(new Vector2((other.gameObject.transform.position.X - mycolider.CollisionBox.Width), 0)); //Højre collision
+            // gameObject.transform.Translate(new Vector2((other.gameObject.transform.position.Y - mycolider.CollisionBox.Height), 0)); //burde være Top collision - Men er højre collision
+
+
 
         }
 
         public void OnCollisionExit(Collider other)
         {
             (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
+
+
         }
     }
 }
