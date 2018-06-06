@@ -21,7 +21,7 @@ namespace SurvivalExam
         Animator animator;
         DIRECTION currentDirection;
         Vector2 translation = Vector2.Zero;
-        public GameObject other;
+
 
         Collider mycolider;
 

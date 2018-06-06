@@ -14,7 +14,7 @@ namespace SurvivalExam
     {
         private Transform target;
         private Transform transform;
-        private float movementSpeed = 10;
+        private float movementSpeed = 40;
         private Animator animator;
 
         public FollowTarget(Transform target, Transform transform, Animator animator)
@@ -51,7 +51,7 @@ namespace SurvivalExam
 
             transform.Translate(translation * movementSpeed * GameWorld.Instance.deltaTime);
 
-            animator.PlayAnimations("Walk");
+            animator.PlayAnimations("Walk" + currentDirection);
         }
     }
 }
