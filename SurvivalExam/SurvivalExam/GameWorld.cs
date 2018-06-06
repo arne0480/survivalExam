@@ -30,8 +30,6 @@ namespace SurvivalExam
 
         GameObject gameObject = new GameObject();
 
-    
-
         private Texture2D backgroundTexture;
         private Rectangle backgroundRectangle;
         Camera camera;

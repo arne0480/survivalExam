@@ -131,7 +131,6 @@ namespace SurvivalExam
         {
             (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
 
-
         }
     }
 }
