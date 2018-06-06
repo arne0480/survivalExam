@@ -14,6 +14,9 @@ namespace SurvivalExam
 
         public Transform transform;
 
+        public string Tag { get; set; } = "Untagged";
+
+
         List<Component> componets = new List<Component>();
 
         public GameObject()
@@ -21,10 +24,12 @@ namespace SurvivalExam
             this.transform = new Transform(this, Vector2.Zero);
             AddComponet(transform);
         }
+
         public void AddComponet(Component component)
         {
             componets.Add(component);
         }
+
         public void LoadContent(ContentManager content)
         {
             foreach (Component componet in componets)
@@ -35,10 +40,12 @@ namespace SurvivalExam
                 }
             }
         }
+
         public Component GetComponets(string componet)
         {
             return componets.Find(x => x.GetType().Name == componet);
         }
+
         public void Update()
         {
             foreach (Component componet in componets)
@@ -49,6 +56,7 @@ namespace SurvivalExam
                 }
             }
         }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             foreach (Component componet in componets)
@@ -60,6 +68,7 @@ namespace SurvivalExam
             }
 
         }
+
         public void OnAnimationDone(string animationName)
         {
             foreach (Component componet in componets)
@@ -70,6 +79,7 @@ namespace SurvivalExam
                 }
             }
         }
+
         public void OnCollisionStay(Collider other)
         {
             foreach (Component componet in componets)
@@ -80,6 +90,7 @@ namespace SurvivalExam
                 }
             }
         }
+
         public void OnCollissionEnter(Collider other)
         {
             
@@ -91,6 +102,7 @@ namespace SurvivalExam
                 }
             }
         }
+
         public void OnCollisionExit(Collider other)
         {
             foreach (Component componet in componets)
@@ -101,5 +113,7 @@ namespace SurvivalExam
                 }
             }
         }
+
+        
     }
 }

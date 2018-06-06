@@ -10,53 +10,31 @@ using System.Threading.Tasks;
 
 namespace SurvivalExam
 {
-    class Enemy : Component, IAnimateable, IUpdate, ILoad, ICollisionStay, ICollisionEnter, ICollisionExit
+    class Enemy : Component, IUpdate, ILoad, ICollisionEnter, ICollisionExit
     {
-        private float speed = 100;
-        IStrategy strategy;
-        bool canMove = true;
-        Animator animator;
+        // private float speed = 100;
+        private IStrategy strategy;
+        //  bool canEnemyMove = true;
+        private Animator animator;
         DIRECTION currentDirection;
+        private GameObject player;
 
         public Enemy(GameObject gameObject) : base(gameObject)
         {
-
-
+            gameObject.Tag = "Enemy";
         }
         public void Update()
         {
-            Vector2 translation = Vector2.Zero;
-
-            KeyboardState keyState = Keyboard.GetState();
-            if (canMove)
+            if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 150 && !(strategy is FollowTarget))
             {
-                if (keyState.IsKeyDown(Keys.I) || keyState.IsKeyDown(Keys.L) || keyState.IsKeyDown(Keys.K) || keyState.IsKeyDown(Keys.J))
-                {
-                    if (!(strategy is Walk))
-                    {
-                        strategy = new Walk(gameObject.transform, animator, gameObject, speed);
-                    }
-                }
-
-                else
-                {
-                    strategy = new Idle(animator);
-                }
-                if (keyState.IsKeyDown(Keys.RightShift))
-                {
-                    strategy = new Attack(animator);
-
-                    canMove = false;
-                }
+                strategy = new FollowTarget(player.transform, gameObject.transform, animator);
             }
+            else if (Vector2.Distance(gameObject.transform.position, player.transform.position) > 150 && !(strategy is Idle))
+            {
+                strategy = new Idle(animator);
+            }
+
             strategy.Execute(ref currentDirection);
-        }
-        public void OnAnimationDone(string animationName)
-        {
-            if (animationName.Contains("Walk") || animationName.Contains("Attack"))
-            {
-                canMove = true;
-            }
         }
         public void CreatAnimation()
         {
@@ -84,6 +62,7 @@ namespace SurvivalExam
         }
         public void LoadContent(ContentManager content)
         {
+            player = GameWorld.Instance.FindGameObjectWithTag("Player");
 
             animator = (Animator)gameObject.GetComponets("Animator");
 
@@ -91,18 +70,23 @@ namespace SurvivalExam
 
             animator.PlayAnimations("IdleRight");
         }
-        public void OnCollisionStay(Collider other)
+        public void OnAnimationDone(string animationName)
         {
-           
-
+            if (animationName.Contains("Walk"))
+            {
+                
+            }
         }
         public void OnCollisionExit(Collider other)
         {
+            (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
 
         }
+
         public void OnCollisionEnter(Collider other)
         {
 
+            (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
         }
     }
 }

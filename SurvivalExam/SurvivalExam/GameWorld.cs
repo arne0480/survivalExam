@@ -17,9 +17,10 @@ namespace SurvivalExam
     class GameWorld : Game
     {
         GraphicsDeviceManager graphics;
+
         SpriteBatch spriteBatch;
         private Song backgroundMusic;
-        
+
 
         static GameWorld instance;
         public float deltaTime;
@@ -29,10 +30,12 @@ namespace SurvivalExam
 
         GameObject gameObject = new GameObject();
 
-        Rectangle playerRectangle;
+    
 
         private Texture2D backgroundTexture;
         private Rectangle backgroundRectangle;
+        Camera camera;
+        
 
         public static GameWorld Instance //implementering af singleton
         {
@@ -49,9 +52,8 @@ namespace SurvivalExam
         public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
-         //   graphics.IsFullScreen = true; //Sætter spillet i fullscreen
+            graphics.IsFullScreen = true; //Sætter spillet i fullscreen
             Content.RootDirectory = "Content";
-
         }
 
         /// <summary>
@@ -68,12 +70,14 @@ namespace SurvivalExam
             //Spilleren vises på skærmen
             GameObject go = new GameObject();
             go.AddComponet(new Collider(go));
-            go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 1)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
+            go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 2)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
             go.AddComponet(new Animator(go));
             go.AddComponet(new Transform(go, Vector2.Zero));
             go.AddComponet(new Player(go));
-            go.transform.position = new Vector2(100, 200);
-           
+          //  go.AddComponet(new Camera(viewport));
+            go.transform.position = new Vector2(350, 200);
+            go.Tag = "Player";
+
             gameObjectList.Add(go);
 
 
@@ -84,10 +88,11 @@ namespace SurvivalExam
             goEnemy.AddComponet(new Enemy(goEnemy));
             goEnemy.AddComponet(new Collider(goEnemy));
             goEnemy.AddComponet(new Transform(goEnemy, Vector2.Zero));
-            goEnemy.transform.position = new Vector2(300, 200);
+            goEnemy.transform.position = new Vector2(50, 50);
+            goEnemy.Tag = "Enemy";
             gameObjectList.Add(goEnemy);
 
-
+        
             base.Initialize();
         }
 
@@ -108,11 +113,10 @@ namespace SurvivalExam
             backgroundMusic = Content.Load<Song>("Cinematic Documentary - AShamaluevMusic");
             MediaPlayer.Play(backgroundMusic);
             MediaPlayer.IsRepeating = true;
-            
 
 
-            //backgroundTexture = Content.Load<Texture2D>("FullBG1");
-            //backgroundRectangle = new Rectangle(0, 0, backgroundTexture.Width, backgroundTexture.Height);
+            backgroundTexture = Content.Load<Texture2D>("FullbackgroundV2");
+            backgroundRectangle = new Rectangle(0, -300, backgroundTexture.Width, backgroundTexture.Height);
         }
 
         /// <summary>
@@ -131,6 +135,7 @@ namespace SurvivalExam
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -141,6 +146,9 @@ namespace SurvivalExam
             {
                 go.Update();
             }
+
+            //camera.UpdateCamera();
+
             base.Update(gameTime);
         }
 
@@ -153,7 +161,7 @@ namespace SurvivalExam
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             // TODO: Add your drawing code here
-            // spriteBatch.Draw(backgroundTexture, backgroundRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(backgroundTexture, backgroundRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
 
             foreach (GameObject go in gameObjectList) //Fremkalder spilleren
             {
@@ -163,5 +171,11 @@ namespace SurvivalExam
             spriteBatch.End();
             base.Draw(gameTime);
         }
+
+        public GameObject FindGameObjectWithTag(string tag)
+        {
+            return gameObjectList.Find(x => x.Tag == tag);
+        }
+
     }
 }
