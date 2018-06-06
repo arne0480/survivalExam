@@ -33,7 +33,6 @@ namespace SurvivalExam
         public void Update()
         {
             mycolider = gameObject.GetComponets("Collider") as Collider;
-            //mycolider.SetDoCollisionCheck(true);
             Vector2 translation = Vector2.Zero;
 
             KeyboardState keyState = Keyboard.GetState();
@@ -119,13 +118,11 @@ namespace SurvivalExam
             //}
 
             //gameObject.transform.Translate(new Vector2((mycolider.CollisionBox.Width - other.gameObject.transform.position.X), 0)); //Venstre Collision
-            gameObject.transform.Translate(new Vector2((mycolider.CollisionBox.Height - other.gameObject.transform.position.Y), 0)); //burde være bund collision - Men er venstre collision
-
+            //gameObject.transform.Translate(new Vector2((mycolider.CollisionBox.Height - other.gameObject.transform.position.Y), 0)); //burde være bund collision - Men er venstre collision
 
 
             //gameObject.transform.Translate(new Vector2((other.gameObject.transform.position.X - mycolider.CollisionBox.Width), 0)); //Højre collision
-            // gameObject.transform.Translate(new Vector2((other.gameObject.transform.position.Y - mycolider.CollisionBox.Height), 0)); //burde være Top collision - Men er højre collision
-
+            //gameObject.transform.Translate(new Vector2((other.gameObject.transform.position.Y - mycolider.CollisionBox.Height), 0)); //burde være Top collision - Men er højre collision
 
 
         }
