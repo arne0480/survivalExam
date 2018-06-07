@@ -33,7 +33,6 @@ namespace SurvivalExam
         public void Update()
         {
             mycolider = gameObject.GetComponets("Collider") as Collider;
-            //mycolider.SetDoCollisionCheck(true);
             Vector2 translation = Vector2.Zero;
 
             KeyboardState keyState = Keyboard.GetState();
@@ -103,38 +102,37 @@ namespace SurvivalExam
         public void OnCollisionStay(Collider other)
         {
             //   (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
+
+            Collider collider = (Collider)gameObject.GetComponets("Collider");
+            if (collider.CollisionBox.Bottom >= other.CollisionBox.Top && collider.CollisionBox.Bottom - 20 <= other.CollisionBox.Top)
+            {
+                gameObject.transform.CorrectMove(new Vector2(0, other.CollisionBox.Top - collider.CollisionBox.Bottom + 1));
+            }
+
+            if (collider.CollisionBox.Top <= other.CollisionBox.Bottom && collider.CollisionBox.Top + 20 >= other.CollisionBox.Bottom)
+            {
+                gameObject.transform.CorrectMove(new Vector2(0, other.CollisionBox.Bottom - collider.CollisionBox.Top - 1));
+            }
+
+            if (collider.CollisionBox.Right >= other.CollisionBox.Left && collider.CollisionBox.Right - 10 <= other.CollisionBox.Left)
+            {
+                gameObject.transform.CorrectMove(new Vector2(other.CollisionBox.Left - collider.CollisionBox.Right + 1, 0));
+
+            }
+            if (collider.CollisionBox.Left <= other.CollisionBox.Right && collider.CollisionBox.Left + 10 >= other.CollisionBox.Right)
+            {
+                gameObject.transform.CorrectMove(new Vector2(other.CollisionBox.Right - collider.CollisionBox.Left - 1, 0));
+            }
         }
 
         public void OnCollisionEnter(Collider other)
         {
             (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.DarkRed;
-
-
-            //switch (switch_on)
-            //{
-            //    case LeftCollision:
-
-            //break;
-
-            //}
-
-            //gameObject.transform.Translate(new Vector2((mycolider.CollisionBox.Width - other.gameObject.transform.position.X), 0)); //Venstre Collision
-            gameObject.transform.Translate(new Vector2((mycolider.CollisionBox.Height - other.gameObject.transform.position.Y), 0)); //burde være bund collision - Men er venstre collision
-
-
-
-            //gameObject.transform.Translate(new Vector2((other.gameObject.transform.position.X - mycolider.CollisionBox.Width), 0)); //Højre collision
-            // gameObject.transform.Translate(new Vector2((other.gameObject.transform.position.Y - mycolider.CollisionBox.Height), 0)); //burde være Top collision - Men er højre collision
-
-
-
         }
 
         public void OnCollisionExit(Collider other)
         {
             (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
-
-
         }
     }
 }

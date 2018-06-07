@@ -9,8 +9,8 @@ namespace SurvivalExam
 {
     class Transform : Component
     {
-      //  private Vector2 position;
-
+        //  private Vector2 position;
+        public Vector2 velocity;
 
         public Vector2 position { get; set; }
 
@@ -22,6 +22,14 @@ namespace SurvivalExam
         public void Translate(Vector2 translation)
         {
             position += translation;
+        }
+        public void CorrectMove(Vector2 Correction)
+        {
+            position += Correction;
+        }
+        public void Update()
+        {
+            position += velocity;
         }
     }
 }

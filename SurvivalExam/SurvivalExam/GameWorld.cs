@@ -30,8 +30,6 @@ namespace SurvivalExam
 
         GameObject gameObject = new GameObject();
 
-    
-
         private Texture2D backgroundTexture;
         private Rectangle backgroundRectangle;
         Camera camera;
@@ -92,7 +90,19 @@ namespace SurvivalExam
             goEnemy.Tag = "Enemy";
             gameObjectList.Add(goEnemy);
 
-        
+
+            //fremkalder enemy
+            GameObject goEnemySecond = new GameObject();
+            goEnemySecond.AddComponet(new SpriteRenderer(goEnemySecond, "AxeBanditFullSheetV2", 0, 1));
+            goEnemySecond.AddComponet(new Animator(goEnemySecond));
+            goEnemySecond.AddComponet(new Enemy(goEnemySecond));
+            goEnemySecond.AddComponet(new Collider(goEnemySecond));
+            goEnemySecond.AddComponet(new Transform(goEnemySecond, Vector2.Zero));
+            goEnemySecond.transform.position = new Vector2(500, 50);
+            goEnemySecond.Tag = "EnemySecond";
+            gameObjectList.Add(goEnemySecond);
+
+
             base.Initialize();
         }
 
