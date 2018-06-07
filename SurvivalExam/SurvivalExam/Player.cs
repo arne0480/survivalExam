@@ -101,25 +101,23 @@ namespace SurvivalExam
 
         public void OnCollisionStay(Collider other)
         {
-            //   (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
-
             Collider collider = (Collider)gameObject.GetComponets("Collider");
-            if (collider.CollisionBox.Bottom >= other.CollisionBox.Top && collider.CollisionBox.Bottom - 20 <= other.CollisionBox.Top)
+            if (collider.CollisionBox.Bottom >= other.CollisionBox.Top && collider.CollisionBox.Bottom - 20 <= other.CollisionBox.Top) //Tjekker collision i topppen
             {
                 gameObject.transform.CorrectMove(new Vector2(0, other.CollisionBox.Top - collider.CollisionBox.Bottom + 1));
             }
 
-            if (collider.CollisionBox.Top <= other.CollisionBox.Bottom && collider.CollisionBox.Top + 20 >= other.CollisionBox.Bottom)
+            if (collider.CollisionBox.Top <= other.CollisionBox.Bottom && collider.CollisionBox.Top + 20 >= other.CollisionBox.Bottom) //Tjekker collision i bunden
             {
                 gameObject.transform.CorrectMove(new Vector2(0, other.CollisionBox.Bottom - collider.CollisionBox.Top - 1));
             }
 
-            if (collider.CollisionBox.Right >= other.CollisionBox.Left && collider.CollisionBox.Right - 10 <= other.CollisionBox.Left)
+            if (collider.CollisionBox.Right >= other.CollisionBox.Left && collider.CollisionBox.Right - 20 <= other.CollisionBox.Left) //Tjekker collision i venstre side
             {
                 gameObject.transform.CorrectMove(new Vector2(other.CollisionBox.Left - collider.CollisionBox.Right + 1, 0));
-
             }
-            if (collider.CollisionBox.Left <= other.CollisionBox.Right && collider.CollisionBox.Left + 10 >= other.CollisionBox.Right)
+
+            if (collider.CollisionBox.Left <= other.CollisionBox.Right && collider.CollisionBox.Left + 20 >= other.CollisionBox.Right) //Tjekker collision i højre side
             {
                 gameObject.transform.CorrectMove(new Vector2(other.CollisionBox.Right - collider.CollisionBox.Left - 1, 0));
             }

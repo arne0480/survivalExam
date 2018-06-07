@@ -50,6 +50,8 @@ namespace SurvivalExam
         public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
             graphics.IsFullScreen = true; //Sætter spillet i fullscreen
             Content.RootDirectory = "Content";
         }
@@ -86,7 +88,7 @@ namespace SurvivalExam
             goEnemy.AddComponet(new Enemy(goEnemy));
             goEnemy.AddComponet(new Collider(goEnemy));
             goEnemy.AddComponet(new Transform(goEnemy, Vector2.Zero));
-            goEnemy.transform.position = new Vector2(50, 50);
+            goEnemy.transform.position = new Vector2(700, 50);
             goEnemy.Tag = "Enemy";
             gameObjectList.Add(goEnemy);
 
@@ -126,7 +128,7 @@ namespace SurvivalExam
 
 
             backgroundTexture = Content.Load<Texture2D>("FullbackgroundV2");
-            backgroundRectangle = new Rectangle(0, -300, backgroundTexture.Width, backgroundTexture.Height);
+            backgroundRectangle = new Rectangle(0, 0, backgroundTexture.Width, backgroundTexture.Height);
         }
 
         /// <summary>
