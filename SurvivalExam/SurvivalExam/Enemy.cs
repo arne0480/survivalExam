@@ -68,7 +68,8 @@ namespace SurvivalExam
 
             CreatAnimation();
 
-            animator.PlayAnimations("IdleRight");
+           // animator.PlayAnimations("IdleRight");
+            animator.PlayAnimations("IdleLeft");
         }
         
         public void OnCollisionExit(Collider other)
