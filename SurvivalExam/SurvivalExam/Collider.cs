@@ -38,8 +38,6 @@ namespace SurvivalExam
         public Collider(GameObject gameObject) : base(gameObject)
         {
             CheckCollisions = true;
-
-
             GameWorld.Instance.getColliders.Add(this);
 
         }
