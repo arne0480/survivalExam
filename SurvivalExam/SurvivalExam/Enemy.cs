@@ -12,9 +12,8 @@ namespace SurvivalExam
 {
     class Enemy : Component, IUpdate, ILoad, ICollisionEnter, ICollisionExit
     {
-        // private float speed = 100;
+
         private IStrategy strategy;
-        //  bool canEnemyMove = true;
         private Animator animator;
         DIRECTION currentDirection;
         private GameObject player;
@@ -23,19 +22,30 @@ namespace SurvivalExam
         {
             gameObject.Tag = "Enemy";
         }
+
         public void Update()
         {
             if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 150 && !(strategy is FollowTarget))
             {
                 strategy = new FollowTarget(player.transform, gameObject.transform, animator);
             }
+
+
             else if (Vector2.Distance(gameObject.transform.position, player.transform.position) > 150 && !(strategy is Idle))
             {
                 strategy = new Idle(animator);
             }
 
+
+            if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 80 && !(strategy is Attack))
+            {
+
+                strategy = new Attack(animator);
+            }
+
             strategy.Execute(ref currentDirection);
         }
+
         public void CreatAnimation()
         {
             animator.CreateAnimation("IdleLeft", new Animation(6, 320, 0, 80, 80, 7, new Vector2(0, 0)));
@@ -68,10 +78,10 @@ namespace SurvivalExam
 
             CreatAnimation();
 
-           // animator.PlayAnimations("IdleRight");
+            // animator.PlayAnimations("IdleRight");
             animator.PlayAnimations("IdleLeft");
         }
-        
+
         public void OnCollisionExit(Collider other)
         {
             (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;

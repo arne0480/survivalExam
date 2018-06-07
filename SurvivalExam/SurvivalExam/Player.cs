@@ -22,7 +22,6 @@ namespace SurvivalExam
         DIRECTION currentDirection;
         Vector2 translation = Vector2.Zero;
 
-
         Collider mycolider;
 
         public Player(GameObject gameObject) : base(gameObject)
@@ -102,7 +101,7 @@ namespace SurvivalExam
         public void OnCollisionStay(Collider other)
         {
             Collider collider = (Collider)gameObject.GetComponets("Collider");
-            if (collider.CollisionBox.Bottom >= other.CollisionBox.Top && collider.CollisionBox.Bottom - 10 <= other.CollisionBox.Top) //Tjekker collision i topppen
+            if (collider.CollisionBox.Bottom >= other.CollisionBox.Top && collider.CollisionBox.Bottom - 10 <= other.CollisionBox.Top) //Tjekker collision i toppen
             {
                 gameObject.transform.CorrectMove(new Vector2(0, other.CollisionBox.Top - collider.CollisionBox.Bottom + 1));
             }
