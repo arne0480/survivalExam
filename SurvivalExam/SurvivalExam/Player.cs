@@ -27,7 +27,6 @@ namespace SurvivalExam
         public Player(GameObject gameObject) : base(gameObject)
         {
 
-
         }
         public void Update()
         {

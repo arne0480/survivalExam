@@ -20,15 +20,26 @@ namespace SurvivalExam
         private GameObject player;
         static Mutex m = new Mutex();
         Thread thread;
+        bool isAlive;
+        bool threadStart;
         static Semaphore semaphore = new Semaphore(1, 1);
 
         public Enemy(GameObject gameObject) : base(gameObject)
         {
-            gameObject.Tag = "Enemy";
+            isAlive = true;
+            threadStart = false;
+            thread = new Thread(CheckForPlayer);
+            thread.IsBackground = true;
+            //currentDirection = DIRECTION.Down;
         }
 
         public void Update()
         {
+            if (threadStart == false)
+            {
+                thread.Start();
+                threadStart = true;
+            }
             CheckForPlayer();
         }
 
@@ -36,11 +47,12 @@ namespace SurvivalExam
         {
             m.WaitOne();
             //semaphore.WaitOne();
+            //while (isAlive)
+            //{
             if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 150 && !(strategy is FollowTarget))
             {
                 strategy = new FollowTarget(player.transform, gameObject.transform, animator);
             }
-
             else if (Vector2.Distance(gameObject.transform.position, player.transform.position) > 150 && !(strategy is Idle))
             {
                 strategy = new Idle(animator);
@@ -49,12 +61,23 @@ namespace SurvivalExam
             {
                 strategy = new Attack(animator);
             }
-
             strategy.Execute(ref currentDirection);
-            m.ReleaseMutex();
-            // semaphore.Release();
-        }
 
+            //}
+            m.ReleaseMutex();
+            //semaphore.Release();
+        }
+        public void LoadContent(ContentManager content)
+        {
+            player = GameWorld.Instance.FindGameObjectWithTag("Player");
+
+            animator = (Animator)gameObject.GetComponets("Animator");
+
+            CreatAnimation();
+
+            //animator.PlayAnimations("IdleRight");
+            animator.PlayAnimations("IdleLeft");
+        }
         public void CreatAnimation()
         {
             animator.CreateAnimation("IdleLeft", new Animation(6, 320, 0, 80, 80, 7, new Vector2(0, 0)));
@@ -79,24 +102,11 @@ namespace SurvivalExam
             //animator.CreateAnimation("DieRight", new Animation(3, 1070, 3, 150, 150, 5, Vector2.Zero));
 
         }
-        public void LoadContent(ContentManager content)
-        {
-            player = GameWorld.Instance.FindGameObjectWithTag("Player");
-
-            animator = (Animator)gameObject.GetComponets("Animator");
-
-            CreatAnimation();
-
-            // animator.PlayAnimations("IdleRight");
-            animator.PlayAnimations("IdleLeft");
-        }
-
         public void OnCollisionExit(Collider other)
         {
             (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
 
         }
-
         public void OnCollisionEnter(Collider other)
         {
 

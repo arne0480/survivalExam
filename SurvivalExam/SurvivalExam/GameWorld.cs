@@ -33,7 +33,7 @@ namespace SurvivalExam
 
         static Mutex m = new Mutex();
         static Semaphore semaphore = new Semaphore(1, 1);
-
+        Thread thread;
 
         private Texture2D backgroundTexture;
         private Rectangle backgroundRectangle;
@@ -57,7 +57,7 @@ namespace SurvivalExam
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 1366; //Sætter bredden på 1366 i resolition
             graphics.PreferredBackBufferHeight = 768; //Sætter højden på 768px i resolution
-            graphics.IsFullScreen = false; //Sætter spillet i fullscreen
+            graphics.IsFullScreen = false; //Sætter spillet i fullscreen når den er True
             Content.RootDirectory = "Content";
         }
 
@@ -71,9 +71,7 @@ namespace SurvivalExam
         {
             // TODO: Add your initialization logic here
 
-            //Spilleren vises på skærmen
- 
-
+            //giver spilleren forskellige komponenter, som går at den kan blive vist på skærmen
             GameObject go = new GameObject();
             go.AddComponet(new Collider(go));
             go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 1)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
@@ -84,13 +82,9 @@ namespace SurvivalExam
             go.transform.position = new Vector2(350, 200);
             go.Tag = "Player";
             gameObjectList.Add(go);
-  
 
 
-
-            //fremkalder enemy
- 
-
+            //giver enemy forskellige komponenter, som går at den kan blive vist på skærmen
             GameObject goEnemy = new GameObject();
             goEnemy.AddComponet(new SpriteRenderer(goEnemy, "AxeBanditFullSheetV2", 0, 1));
             goEnemy.AddComponet(new Animator(goEnemy));
@@ -99,13 +93,12 @@ namespace SurvivalExam
             goEnemy.AddComponet(new Transform(goEnemy, Vector2.Zero));
             goEnemy.transform.position = new Vector2(600, 600);
             goEnemy.Tag = "Enemy";
+
             gameObjectList.Add(goEnemy);
 
-          
 
-            //fremkalder enemy
-  
 
+            //giver enemy forskellige komponenter, som går at den kan blive vist på skærmen
             GameObject goEnemySecond = new GameObject();
             goEnemySecond.AddComponet(new SpriteRenderer(goEnemySecond, "AxeBanditFullSheetV2", 0, 1));
             goEnemySecond.AddComponet(new Animator(goEnemySecond));
@@ -116,7 +109,6 @@ namespace SurvivalExam
             goEnemySecond.Tag = "Enemy";
             gameObjectList.Add(goEnemySecond);
 
-       
 
 
             base.Initialize();
@@ -137,8 +129,9 @@ namespace SurvivalExam
             }
 
             backgroundMusic = Content.Load<Song>("Cinematic Documentary - AShamaluevMusic");
-            MediaPlayer.Play(backgroundMusic);
-            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(backgroundMusic); //Spiller musik
+            MediaPlayer.IsRepeating = true; //Repeater sangen efter den er færdig med at spille
+            MediaPlayer.Volume = 0.5f; //Sætter lydstyrken på sangen
 
 
             backgroundTexture = Content.Load<Texture2D>("FullbackgroundV2");
@@ -168,7 +161,7 @@ namespace SurvivalExam
             // TODO: Add your update logic here
             deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            foreach (GameObject go in gameObjectList)
+            foreach (GameObject go in gameObjectList) //opdatere det der i gameObjectList - Player & Enemy
             {
                 go.Update();
             }
@@ -187,9 +180,9 @@ namespace SurvivalExam
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             // TODO: Add your drawing code here
-            spriteBatch.Draw(backgroundTexture, backgroundRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(backgroundTexture, backgroundRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1); //tegner baggrundsbillede
 
-            foreach (GameObject go in gameObjectList) //Fremkalder spilleren
+            foreach (GameObject go in gameObjectList) //tegner spiller og enemy
             {
                 go.Draw(spriteBatch);
             }
