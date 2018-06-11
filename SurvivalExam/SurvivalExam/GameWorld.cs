@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SurvivalExam
@@ -30,10 +31,14 @@ namespace SurvivalExam
 
         GameObject gameObject = new GameObject();
 
+        static Mutex m = new Mutex();
+        static Semaphore semaphore = new Semaphore(1, 1);
+
+
         private Texture2D backgroundTexture;
         private Rectangle backgroundRectangle;
         Camera camera;
-        
+
 
         public static GameWorld Instance //implementering af singleton
         {
@@ -50,9 +55,9 @@ namespace SurvivalExam
         public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1920; //Sætter bredden på 1920px i resolition
-            graphics.PreferredBackBufferHeight = 1080; //Sætter højden på 1080px i resolution
-            graphics.IsFullScreen = true; //Sætter spillet i fullscreen
+            graphics.PreferredBackBufferWidth = 1366; //Sætter bredden på 1366 i resolition
+            graphics.PreferredBackBufferHeight = 768; //Sætter højden på 768px i resolution
+            graphics.IsFullScreen = false; //Sætter spillet i fullscreen
             Content.RootDirectory = "Content";
         }
 
@@ -66,34 +71,41 @@ namespace SurvivalExam
         {
             // TODO: Add your initialization logic here
 
-
             //Spilleren vises på skærmen
+ 
+
             GameObject go = new GameObject();
             go.AddComponet(new Collider(go));
-            go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 2)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
+            go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 1)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
             go.AddComponet(new Animator(go));
             go.AddComponet(new Transform(go, Vector2.Zero));
             go.AddComponet(new Player(go));
-          //  go.AddComponet(new Camera(viewport));
+            //go.AddComponet(new Camera(viewport));
             go.transform.position = new Vector2(350, 200);
             go.Tag = "Player";
-
             gameObjectList.Add(go);
+  
+
 
 
             //fremkalder enemy
+ 
+
             GameObject goEnemy = new GameObject();
             goEnemy.AddComponet(new SpriteRenderer(goEnemy, "AxeBanditFullSheetV2", 0, 1));
             goEnemy.AddComponet(new Animator(goEnemy));
             goEnemy.AddComponet(new Enemy(goEnemy));
             goEnemy.AddComponet(new Collider(goEnemy));
             goEnemy.AddComponet(new Transform(goEnemy, Vector2.Zero));
-            goEnemy.transform.position = new Vector2(700, 750);
+            goEnemy.transform.position = new Vector2(600, 600);
             goEnemy.Tag = "Enemy";
             gameObjectList.Add(goEnemy);
 
+          
 
             //fremkalder enemy
+  
+
             GameObject goEnemySecond = new GameObject();
             goEnemySecond.AddComponet(new SpriteRenderer(goEnemySecond, "AxeBanditFullSheetV2", 0, 1));
             goEnemySecond.AddComponet(new Animator(goEnemySecond));
@@ -101,8 +113,10 @@ namespace SurvivalExam
             goEnemySecond.AddComponet(new Collider(goEnemySecond));
             goEnemySecond.AddComponet(new Transform(goEnemySecond, Vector2.Zero));
             goEnemySecond.transform.position = new Vector2(500, 50);
-            goEnemySecond.Tag = "EnemySecond";
+            goEnemySecond.Tag = "Enemy";
             gameObjectList.Add(goEnemySecond);
+
+       
 
 
             base.Initialize();
@@ -188,6 +202,6 @@ namespace SurvivalExam
         {
             return gameObjectList.Find(x => x.Tag == tag);
         }
-        
+
     }
 }

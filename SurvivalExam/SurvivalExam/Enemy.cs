@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SurvivalExam
@@ -17,6 +18,9 @@ namespace SurvivalExam
         private Animator animator;
         DIRECTION currentDirection;
         private GameObject player;
+        static Mutex m = new Mutex();
+        Thread thread;
+        static Semaphore semaphore = new Semaphore(1, 1);
 
         public Enemy(GameObject gameObject) : base(gameObject)
         {
@@ -25,25 +29,30 @@ namespace SurvivalExam
 
         public void Update()
         {
+            CheckForPlayer();
+        }
+
+        public void CheckForPlayer()
+        {
+            m.WaitOne();
+            //semaphore.WaitOne();
             if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 150 && !(strategy is FollowTarget))
             {
                 strategy = new FollowTarget(player.transform, gameObject.transform, animator);
             }
 
-
             else if (Vector2.Distance(gameObject.transform.position, player.transform.position) > 150 && !(strategy is Idle))
             {
                 strategy = new Idle(animator);
             }
-
-
             if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 80 && !(strategy is Attack))
             {
-
                 strategy = new Attack(animator);
             }
 
             strategy.Execute(ref currentDirection);
+            m.ReleaseMutex();
+            // semaphore.Release();
         }
 
         public void CreatAnimation()
