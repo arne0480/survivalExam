@@ -21,50 +21,56 @@ namespace SurvivalExam
         static Mutex m = new Mutex();
         Thread thread;
         bool isAlive;
-        bool threadStart;
+        bool threadStart = false;
         static Semaphore semaphore = new Semaphore(1, 1);
 
         public Enemy(GameObject gameObject) : base(gameObject)
         {
-            isAlive = true;
-            threadStart = false;
-            thread = new Thread(CheckForPlayer);
-            thread.IsBackground = true;
-            //currentDirection = DIRECTION.Down;
+
         }
 
         public void Update()
         {
+
             if (threadStart == false)
             {
+                Thread thread = new Thread(new ThreadStart(CheckForPlayer));
+                isAlive = true;
+
+
+                thread.IsBackground = true;
                 thread.Start();
                 threadStart = true;
             }
-            CheckForPlayer();
+            else
+            {
+                strategy.Execute(ref currentDirection);
+            }
+            //   CheckForPlayer();
         }
 
         public void CheckForPlayer()
         {
-            m.WaitOne();
+            //m.WaitOne();
             //semaphore.WaitOne();
-            //while (isAlive)
-            //{
-            if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 150 && !(strategy is FollowTarget))
+            while (isAlive)
             {
-                strategy = new FollowTarget(player.transform, gameObject.transform, animator);
-            }
-            else if (Vector2.Distance(gameObject.transform.position, player.transform.position) > 150 && !(strategy is Idle))
-            {
-                strategy = new Idle(animator);
-            }
-            if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 80 && !(strategy is Attack))
-            {
-                strategy = new Attack(animator);
-            }
-            strategy.Execute(ref currentDirection);
+                if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 150 && !(strategy is FollowTarget))
+                {
+                    strategy = new FollowTarget(player.transform, gameObject.transform, animator);
+                }
+                else if (Vector2.Distance(gameObject.transform.position, player.transform.position) > 150 && !(strategy is Idle))
+                {
+                    strategy = new Idle(animator);
+                }
+                if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 80 && !(strategy is Attack))
+                {
+                    strategy = new Attack(animator);
+                }
 
-            //}
-            m.ReleaseMutex();
+            }
+
+            //m.ReleaseMutex();
             //semaphore.Release();
         }
         public void LoadContent(ContentManager content)
