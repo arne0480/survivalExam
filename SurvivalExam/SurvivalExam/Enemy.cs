@@ -6,35 +6,83 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SurvivalExam
 {
     class Enemy : Component, IUpdate, ILoad, ICollisionEnter, ICollisionExit
     {
-        // private float speed = 100;
+
         private IStrategy strategy;
-        //  bool canEnemyMove = true;
         private Animator animator;
         DIRECTION currentDirection;
         private GameObject player;
+        static Mutex m = new Mutex();
+        Thread thread;
+        bool isAlive;
+        bool threadStart = false;
+        static Semaphore semaphore = new Semaphore(1, 1);
 
         public Enemy(GameObject gameObject) : base(gameObject)
         {
-            gameObject.Tag = "Enemy";
+
         }
+
         public void Update()
         {
-            if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 150 && !(strategy is FollowTarget))
+
+            if (threadStart == false)
             {
-                strategy = new FollowTarget(player.transform, gameObject.transform, animator);
+                Thread thread = new Thread(new ThreadStart(CheckForPlayer));
+                isAlive = true;
+
+
+                thread.IsBackground = true;
+                thread.Start();
+                threadStart = true;
             }
-            else if (Vector2.Distance(gameObject.transform.position, player.transform.position) > 150 && !(strategy is Idle))
+            else
             {
-                strategy = new Idle(animator);
+                strategy.Execute(ref currentDirection);
+            }
+            //   CheckForPlayer();
+        }
+
+        public void CheckForPlayer()
+        {
+            //m.WaitOne();
+            //semaphore.WaitOne();
+            while (isAlive)
+            {
+                if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 150 && !(strategy is FollowTarget))
+                {
+                    strategy = new FollowTarget(player.transform, gameObject.transform, animator);
+                }
+                else if (Vector2.Distance(gameObject.transform.position, player.transform.position) > 150 && !(strategy is Idle))
+                {
+                    strategy = new Idle(animator);
+                }
+                if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 80 && !(strategy is Attack))
+                {
+                    strategy = new Attack(animator);
+                }
+
             }
 
-            strategy.Execute(ref currentDirection);
+            //m.ReleaseMutex();
+            //semaphore.Release();
+        }
+        public void LoadContent(ContentManager content)
+        {
+            player = GameWorld.Instance.FindGameObjectWithTag("Player");
+
+            animator = (Animator)gameObject.GetComponets("Animator");
+
+            CreatAnimation();
+
+            //animator.PlayAnimations("IdleRight");
+            animator.PlayAnimations("IdleLeft");
         }
         public void CreatAnimation()
         {
@@ -60,23 +108,11 @@ namespace SurvivalExam
             //animator.CreateAnimation("DieRight", new Animation(3, 1070, 3, 150, 150, 5, Vector2.Zero));
 
         }
-        public void LoadContent(ContentManager content)
-        {
-            player = GameWorld.Instance.FindGameObjectWithTag("Player");
-
-            animator = (Animator)gameObject.GetComponets("Animator");
-
-            CreatAnimation();
-
-            animator.PlayAnimations("IdleRight");
-        }
-        
         public void OnCollisionExit(Collider other)
         {
             (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
 
         }
-
         public void OnCollisionEnter(Collider other)
         {
 
