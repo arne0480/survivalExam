@@ -18,11 +18,10 @@ namespace SurvivalExam
         private Animator animator;
         DIRECTION currentDirection;
         private GameObject player;
-        static Mutex m = new Mutex();
-        Thread thread;
         bool isAlive;
         bool threadStart = false;
-        static Semaphore semaphore = new Semaphore(1, 1);
+        //static Semaphore semaphore = new Semaphore(1, 1);
+        //static Mutex m = new Mutex();
 
         public Enemy(GameObject gameObject) : base(gameObject)
         {
@@ -36,8 +35,6 @@ namespace SurvivalExam
             {
                 Thread thread = new Thread(new ThreadStart(CheckForPlayer));
                 isAlive = true;
-
-
                 thread.IsBackground = true;
                 thread.Start();
                 threadStart = true;
@@ -51,8 +48,7 @@ namespace SurvivalExam
 
         public void CheckForPlayer()
         {
-            //m.WaitOne();
-            //semaphore.WaitOne();
+
             while (isAlive)
             {
                 if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 150 && !(strategy is FollowTarget))
@@ -67,12 +63,9 @@ namespace SurvivalExam
                 {
                     strategy = new Attack(animator);
                 }
-
             }
-
-            //m.ReleaseMutex();
-            //semaphore.Release();
         }
+
         public void LoadContent(ContentManager content)
         {
             player = GameWorld.Instance.FindGameObjectWithTag("Player");
