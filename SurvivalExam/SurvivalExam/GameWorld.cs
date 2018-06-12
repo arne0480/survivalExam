@@ -22,6 +22,10 @@ namespace SurvivalExam
 
         SpriteBatch spriteBatch;
         private Song backgroundMusic;
+<<<<<<< HEAD
+=======
+        private HealthBar healthBar;
+>>>>>>> Daniel
 
 
         static GameWorld instance;
@@ -35,8 +39,10 @@ namespace SurvivalExam
         static Mutex m = new Mutex();
         static Semaphore semaphore = new Semaphore(1, 1);
 
-        private Texture2D backgroundTexture;
-        private Rectangle backgroundRectangle;
+        Player player;
+
+
+       
 
 
         public static GameWorld Instance //implementering af singleton
@@ -86,8 +92,24 @@ namespace SurvivalExam
                 go.Tag = "Player";
                 gameObjectList.Add(go);
 
+<<<<<<< HEAD
             }
             //giver enemy forskellige komponenter, som går at den kan blive vist på skærmen
+=======
+            //Spilleren vises på skærmen
+            GameObject go = new GameObject();
+            go.AddComponet(new Collider(go));
+            go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 1)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
+            go.AddComponet(new Animator(go));
+            go.AddComponet(new Transform(go, Vector2.Zero));
+            go.AddComponet(new Player(go)); 
+            go.transform.position = new Vector2(100, 200);
+           
+            gameObjectList.Add(go);
+
+
+            //fremkalder enemy
+>>>>>>> Daniel
             GameObject goEnemy = new GameObject();
             goEnemy.AddComponet(new SpriteRenderer(goEnemy, "AxeBanditFullSheetV2", 0, 1));
             goEnemy.AddComponet(new Animator(goEnemy));
@@ -101,6 +123,7 @@ namespace SurvivalExam
 
 
 
+<<<<<<< HEAD
             //giver enemy forskellige komponenter, som går at den kan blive vist på skærmen
             GameObject goEnemySecond = new GameObject();
             goEnemySecond.AddComponet(new SpriteRenderer(goEnemySecond, "AxeBanditFullSheetV2", 0, 1));
@@ -114,6 +137,8 @@ namespace SurvivalExam
 
 
 
+=======
+>>>>>>> Daniel
             base.Initialize();
         }
 
@@ -132,6 +157,7 @@ namespace SurvivalExam
             }
 
             backgroundMusic = Content.Load<Song>("Cinematic Documentary - AShamaluevMusic");
+<<<<<<< HEAD
             MediaPlayer.Play(backgroundMusic); //Spiller musik
             MediaPlayer.IsRepeating = true; //Repeater sangen efter den er færdig med at spille
             MediaPlayer.Volume = 0.5f; //Sætter lydstyrken på sangen
@@ -139,6 +165,19 @@ namespace SurvivalExam
 
             backgroundTexture = Content.Load<Texture2D>("FullbackgroundV2");
             backgroundRectangle = new Rectangle(0, 0, backgroundTexture.Width, backgroundTexture.Height);
+=======
+            MediaPlayer.Play(backgroundMusic);
+            MediaPlayer.IsRepeating = true;
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            healthBar = new HealthBar(Content);
+
+
+
+
+
+
+
+>>>>>>> Daniel
         }
 
         /// <summary>
@@ -169,7 +208,12 @@ namespace SurvivalExam
                 go.Update();
             }
 
+<<<<<<< HEAD
             //camera.UpdateCamera();
+=======
+
+
+>>>>>>> Daniel
 
             base.Update(gameTime);
         }
@@ -181,8 +225,8 @@ namespace SurvivalExam
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin();
             // TODO: Add your drawing code here
+<<<<<<< HEAD
             spriteBatch.Draw(backgroundTexture, backgroundRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1); //tegner baggrundsbillede
 
             foreach (GameObject go in gameObjectList) //tegner spiller og enemy
@@ -191,6 +235,21 @@ namespace SurvivalExam
             }
            
             
+=======
+            foreach (GameObject go in gameObjectList) //Fremkalder spilleren
+            {
+                go.Draw(spriteBatch);
+            }
+
+            healthBar.Draw(spriteBatch);
+
+
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+
+
+
+
+>>>>>>> Daniel
             spriteBatch.End();
             base.Draw(gameTime);
         }

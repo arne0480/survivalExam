@@ -1,11 +1,16 @@
+<<<<<<< HEAD
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+=======
+﻿using System;
+>>>>>>> Daniel
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+<<<<<<< HEAD
 
 namespace SurvivalExam
 {
@@ -147,5 +152,15 @@ namespace SurvivalExam
 
             MoveCamera(cameraMovement);
         }
+=======
+using Microsoft.Xna.Framework;
+
+namespace SurvivalExam
+{
+
+    public class Camera
+    {
+
+>>>>>>> Daniel
     }
 }
