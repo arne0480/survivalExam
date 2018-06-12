@@ -5,8 +5,10 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SurvivalExam
@@ -17,9 +19,13 @@ namespace SurvivalExam
     class GameWorld : Game
     {
         GraphicsDeviceManager graphics;
+
         SpriteBatch spriteBatch;
         private Song backgroundMusic;
+<<<<<<< HEAD
+=======
         private HealthBar healthBar;
+>>>>>>> Daniel
 
 
         static GameWorld instance;
@@ -30,12 +36,14 @@ namespace SurvivalExam
 
         GameObject gameObject = new GameObject();
 
-        Rectangle playerRectangle;
+        static Mutex m = new Mutex();
+        static Semaphore semaphore = new Semaphore(1, 1);
 
-        private Texture2D backgroundTexture;
-        private Rectangle backgroundRectangle;
+        Player player;
+
 
        
+
 
         public static GameWorld Instance //implementering af singleton
         {
@@ -52,9 +60,10 @@ namespace SurvivalExam
         public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
-         //   graphics.IsFullScreen = true; //Sætter spillet i fullscreen
+            graphics.PreferredBackBufferWidth = 1366; //Sætter bredden på 1366 i resolition
+            graphics.PreferredBackBufferHeight = 768; //Sætter højden på 768px i resolution
+            graphics.IsFullScreen = false; //Sætter spillet i fullscreen når den er True
             Content.RootDirectory = "Content";
-
         }
 
         /// <summary>
@@ -67,30 +76,69 @@ namespace SurvivalExam
         {
             // TODO: Add your initialization logic here
 
+            //giver spilleren forskellige komponenter, som går at den kan blive vist på skærmen
+            UserFac userFac = new UserFac();
+            DataTable dt = userFac.SelectAllInTable();
+            foreach (DataRow row in dt.Rows)
+            {
+                GameObject go = new GameObject();
+                go.AddComponet(new Collider(go));
+                go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 1)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
+                go.AddComponet(new Animator(go));
+                go.AddComponet(new Transform(go, Vector2.Zero));
+                go.AddComponet(new Player(go));
+                //go.AddComponet(new Camera(viewport));
+                go.transform.position = new Vector2(350, 200);
+                go.Tag = "Player";
+                gameObjectList.Add(go);
 
+<<<<<<< HEAD
+            }
+            //giver enemy forskellige komponenter, som går at den kan blive vist på skærmen
+=======
             //Spilleren vises på skærmen
             GameObject go = new GameObject();
+            go.AddComponet(new Collider(go));
             go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 1)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
             go.AddComponet(new Animator(go));
             go.AddComponet(new Transform(go, Vector2.Zero));
-            go.AddComponet(new Player(go));
-            go.AddComponet(new Collider(go));
-            go.transform.Position = new Vector2(100, 200);
+            go.AddComponet(new Player(go)); 
+            go.transform.position = new Vector2(100, 200);
+           
             gameObjectList.Add(go);
 
 
             //fremkalder enemy
+>>>>>>> Daniel
             GameObject goEnemy = new GameObject();
             goEnemy.AddComponet(new SpriteRenderer(goEnemy, "AxeBanditFullSheetV2", 0, 1));
             goEnemy.AddComponet(new Animator(goEnemy));
             goEnemy.AddComponet(new Enemy(goEnemy));
             goEnemy.AddComponet(new Collider(goEnemy));
             goEnemy.AddComponet(new Transform(goEnemy, Vector2.Zero));
-            goEnemy.transform.Position = new Vector2(300, 200);
+            goEnemy.transform.position = new Vector2(600, 600);
+            goEnemy.Tag = "Enemy";
+
             gameObjectList.Add(goEnemy);
 
 
 
+<<<<<<< HEAD
+            //giver enemy forskellige komponenter, som går at den kan blive vist på skærmen
+            GameObject goEnemySecond = new GameObject();
+            goEnemySecond.AddComponet(new SpriteRenderer(goEnemySecond, "AxeBanditFullSheetV2", 0, 1));
+            goEnemySecond.AddComponet(new Animator(goEnemySecond));
+            goEnemySecond.AddComponet(new Enemy(goEnemySecond));
+            goEnemySecond.AddComponet(new Collider(goEnemySecond));
+            goEnemySecond.AddComponet(new Transform(goEnemySecond, Vector2.Zero));
+            goEnemySecond.transform.position = new Vector2(500, 50);
+            goEnemySecond.Tag = "Enemy";
+            gameObjectList.Add(goEnemySecond);
+
+
+
+=======
+>>>>>>> Daniel
             base.Initialize();
         }
 
@@ -102,15 +150,22 @@ namespace SurvivalExam
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
             // TODO: use this.Content to load your game content here
             foreach (GameObject go in gameObjectList)
             {
                 go.LoadContent(Content);
             }
 
-
             backgroundMusic = Content.Load<Song>("Cinematic Documentary - AShamaluevMusic");
+<<<<<<< HEAD
+            MediaPlayer.Play(backgroundMusic); //Spiller musik
+            MediaPlayer.IsRepeating = true; //Repeater sangen efter den er færdig med at spille
+            MediaPlayer.Volume = 0.5f; //Sætter lydstyrken på sangen
+
+
+            backgroundTexture = Content.Load<Texture2D>("FullbackgroundV2");
+            backgroundRectangle = new Rectangle(0, 0, backgroundTexture.Width, backgroundTexture.Height);
+=======
             MediaPlayer.Play(backgroundMusic);
             MediaPlayer.IsRepeating = true;
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -121,8 +176,8 @@ namespace SurvivalExam
 
 
 
-            //backgroundTexture = Content.Load<Texture2D>("FullBG1");
-            //backgroundRectangle = new Rectangle(0, 0, backgroundTexture.Width, backgroundTexture.Height);
+
+>>>>>>> Daniel
         }
 
         /// <summary>
@@ -141,19 +196,24 @@ namespace SurvivalExam
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
             // TODO: Add your update logic here
             deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            foreach (GameObject go in gameObjectList)
+            foreach (GameObject go in gameObjectList) //opdatere det der i gameObjectList - Player & Enemy
             {
                 go.Update();
             }
 
+<<<<<<< HEAD
+            //camera.UpdateCamera();
+=======
 
 
+>>>>>>> Daniel
 
             base.Update(gameTime);
         }
@@ -166,8 +226,16 @@ namespace SurvivalExam
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             // TODO: Add your drawing code here
-            // spriteBatch.Draw(backgroundTexture, backgroundRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
+<<<<<<< HEAD
+            spriteBatch.Draw(backgroundTexture, backgroundRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1); //tegner baggrundsbillede
 
+            foreach (GameObject go in gameObjectList) //tegner spiller og enemy
+            {
+                go.Draw(spriteBatch);
+            }
+           
+            
+=======
             foreach (GameObject go in gameObjectList) //Fremkalder spilleren
             {
                 go.Draw(spriteBatch);
@@ -181,8 +249,15 @@ namespace SurvivalExam
 
 
 
+>>>>>>> Daniel
             spriteBatch.End();
             base.Draw(gameTime);
         }
+
+        public GameObject FindGameObjectWithTag(string tag)
+        {
+            return gameObjectList.Find(x => x.Tag == tag);
+        }
+
     }
 }

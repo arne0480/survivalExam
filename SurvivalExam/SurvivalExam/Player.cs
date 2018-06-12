@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 using SurvivalExamh;
 using System;
 using System.Collections.Generic;
@@ -20,16 +21,42 @@ namespace SurvivalExam
         bool canPlayerMove = true;
         Animator animator;
         DIRECTION currentDirection;
+        Vector2 translation = Vector2.Zero;
+
+        Collider mycolider;
+
+        Texture2D texture;
+        public Rectangle rectangle;
+        Vector2 position;
+        public int health;
+
+        public Player(Texture2D newTexture, Vector2 newPosition, int newHealth)
+        {
+            texture = newTexture;
+            position = newPosition;
+
+            health = newHealth;
+        }
+
+        public void Update()
+        {
+            rectangle = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            if (health > 0)
+                spriteBatch.Draw(texture, rectangle, Color.White);
+        }
+
 
         public Player(GameObject gameObject) : base(gameObject)
         {
 
-
         }
         public void Update()
         {
-            Collider mycolider = gameObject.GetComponets("Collider") as Collider;
-            mycolider.SetDoCollisionCheck(true);
+            mycolider = gameObject.GetComponets("Collider") as Collider;
             Vector2 translation = Vector2.Zero;
 
             KeyboardState keyState = Keyboard.GetState();
@@ -98,16 +125,36 @@ namespace SurvivalExam
 
         public void OnCollisionStay(Collider other)
         {
-            //  other.IsCollideWith = true;
+            Collider collider = (Collider)gameObject.GetComponets("Collider");
+            if (collider.CollisionBox.Bottom >= other.CollisionBox.Top && collider.CollisionBox.Bottom - 10 <= other.CollisionBox.Top) //Tjekker collision i toppen
+            {
+                gameObject.transform.CorrectMove(new Vector2(0, other.CollisionBox.Top - collider.CollisionBox.Bottom + 1));
+            }
 
-        }
-        public void OnCollisionExit(Collider other)
-        {
+            if (collider.CollisionBox.Top <= other.CollisionBox.Bottom && collider.CollisionBox.Top + 10 >= other.CollisionBox.Bottom) //Tjekker collision i bunden
+            {
+                gameObject.transform.CorrectMove(new Vector2(0, other.CollisionBox.Bottom - collider.CollisionBox.Top - 1));
+            }
 
+            if (collider.CollisionBox.Right >= other.CollisionBox.Left && collider.CollisionBox.Right - 10 <= other.CollisionBox.Left) //Tjekker collision i venstre side
+            {
+                gameObject.transform.CorrectMove(new Vector2(other.CollisionBox.Left - collider.CollisionBox.Right + 1, 0));
+            }
+
+            if (collider.CollisionBox.Left <= other.CollisionBox.Right && collider.CollisionBox.Left + 10 >= other.CollisionBox.Right) //Tjekker collision i højre side
+            {
+                gameObject.transform.CorrectMove(new Vector2(other.CollisionBox.Right - collider.CollisionBox.Left - 1, 0));
+            }
         }
+
         public void OnCollisionEnter(Collider other)
         {
+            (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.DarkRed;
+        }
 
+        public void OnCollisionExit(Collider other)
+        {
+            (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
         }
 
 

@@ -6,57 +6,83 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SurvivalExam
 {
-    class Enemy : Component, IAnimateable, IUpdate, ILoad, ICollisionStay, ICollisionEnter, ICollisionExit
+    class Enemy : Component, IUpdate, ILoad, ICollisionEnter, ICollisionExit
     {
-        private float speed = 100;
-        IStrategy strategy;
-        bool canMove = true;
-        Animator animator;
+
+        private IStrategy strategy;
+        private Animator animator;
         DIRECTION currentDirection;
+        private GameObject player;
+        static Mutex m = new Mutex();
+        Thread thread;
+        bool isAlive;
+        bool threadStart = false;
+        static Semaphore semaphore = new Semaphore(1, 1);
 
         public Enemy(GameObject gameObject) : base(gameObject)
         {
 
-
         }
+
         public void Update()
         {
-            Vector2 translation = Vector2.Zero;
 
-            KeyboardState keyState = Keyboard.GetState();
-            if (canMove)
+            if (threadStart == false)
             {
-                if (keyState.IsKeyDown(Keys.I) || keyState.IsKeyDown(Keys.L) || keyState.IsKeyDown(Keys.K) || keyState.IsKeyDown(Keys.J))
-                {
-                    if (!(strategy is Walk))
-                    {
-                        strategy = new Walk(gameObject.transform, animator, gameObject, speed);
-                    }
-                }
+                Thread thread = new Thread(new ThreadStart(CheckForPlayer));
+                isAlive = true;
 
-                else
+
+                thread.IsBackground = true;
+                thread.Start();
+                threadStart = true;
+            }
+            else
+            {
+                strategy.Execute(ref currentDirection);
+            }
+            //   CheckForPlayer();
+        }
+
+        public void CheckForPlayer()
+        {
+            //m.WaitOne();
+            //semaphore.WaitOne();
+            while (isAlive)
+            {
+                if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 150 && !(strategy is FollowTarget))
+                {
+                    strategy = new FollowTarget(player.transform, gameObject.transform, animator);
+                }
+                else if (Vector2.Distance(gameObject.transform.position, player.transform.position) > 150 && !(strategy is Idle))
                 {
                     strategy = new Idle(animator);
                 }
-                if (keyState.IsKeyDown(Keys.RightShift))
+                if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 80 && !(strategy is Attack))
                 {
                     strategy = new Attack(animator);
-
-                    canMove = false;
                 }
+
             }
-            strategy.Execute(ref currentDirection);
+
+            //m.ReleaseMutex();
+            //semaphore.Release();
         }
-        public void OnAnimationDone(string animationName)
+        public void LoadContent(ContentManager content)
         {
-            if (animationName.Contains("Walk") || animationName.Contains("Attack"))
-            {
-                canMove = true;
-            }
+            player = GameWorld.Instance.FindGameObjectWithTag("Player");
+
+            animator = (Animator)gameObject.GetComponets("Animator");
+
+            CreatAnimation();
+
+            //animator.PlayAnimations("IdleRight");
+            animator.PlayAnimations("IdleLeft");
         }
         public void CreatAnimation()
         {
@@ -82,27 +108,15 @@ namespace SurvivalExam
             //animator.CreateAnimation("DieRight", new Animation(3, 1070, 3, 150, 150, 5, Vector2.Zero));
 
         }
-        public void LoadContent(ContentManager content)
-        {
-
-            animator = (Animator)gameObject.GetComponets("Animator");
-
-            CreatAnimation();
-
-            animator.PlayAnimations("IdleRight");
-        }
-        public void OnCollisionStay(Collider other)
-        {
-           
-
-        }
         public void OnCollisionExit(Collider other)
         {
+            (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
 
         }
         public void OnCollisionEnter(Collider other)
         {
 
+            (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
         }
     }
 }

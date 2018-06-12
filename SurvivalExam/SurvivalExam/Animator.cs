@@ -14,8 +14,8 @@ namespace SurvivalExam
         private int currentIndex;
         private float timeElapse;
         private float fps;
-        private Rectangle[] rectangles = new Rectangle[8];
-        string animationsName;
+        private Rectangle[] rectangles;
+        string animationName;
         Dictionary<string, Animation> animations = new Dictionary<string, Animation>();
 
         public Animator(GameObject gameObject) : base(gameObject)
@@ -31,7 +31,7 @@ namespace SurvivalExam
 
             if (currentIndex > rectangles.Length - 1)
             {
-                gameObject.OnAnimationDone(animationsName);
+                gameObject.OnAnimationDone(animationName);
                 timeElapse = 0;
                 currentIndex = 0;
             }
@@ -41,16 +41,16 @@ namespace SurvivalExam
         {
             animations.Add(name, animation);
         }
-        public void PlayAnimations(string animationsName)
+        public void PlayAnimations(string animationName)
         {
-            if (this.animationsName != animationsName)
+            if (this.animationName != animationName)
             {
-                this.rectangles = animations[animationsName].Rectangles;
+                this.rectangles = animations[animationName].Rectangles;
                 this.spriteRenderer.Rectangle = rectangles[0];
-                this.spriteRenderer.Offset = animations[animationsName].Offset;
+                this.spriteRenderer.Offset = animations[animationName].Offset;
 
-                this.animationsName = animationsName;
-                this.fps = animations[animationsName].fps;
+                this.animationName = animationName;
+                this.fps = animations[animationName].fps;
 
                 timeElapse = 0;
                 currentIndex = 0;

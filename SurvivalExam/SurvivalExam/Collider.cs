@@ -13,27 +13,13 @@ namespace SurvivalExam
     {
         private SpriteRenderer spriteRenderer;
         private Texture2D texture;
-        private bool doCollisionCheck;
+
+        private HashSet<Collider> otherCollider = new HashSet<Collider>();
 
 
-        private List<Collider> otherCollider = new List<Collider>();
 
-        //private bool isCollideWith;
-
-        public Collider(GameObject gameObject) : base(gameObject)
-        {
-            GameWorld.Instance.getColliders.Add(this);
-            //  isCollideWith = false;
-        }
-
-        public void SetDoCollisionCheck(bool val)
-        {
-            //   doCollisionCheck = val;
-        }
-        public void DoCollisionCheck()
-        {
-            
-        }
+        public bool CheckCollisions
+        { get; set; }
 
 
         public Rectangle CollisionBox
@@ -41,24 +27,25 @@ namespace SurvivalExam
             get
             {
                 return new Rectangle
-                (
-                    (int)(gameObject.transform.Position.X + spriteRenderer.Offset.X),
-                    (int)(gameObject.transform.Position.Y + spriteRenderer.Offset.Y),
-                    spriteRenderer.Rectangle.Width,
-                    spriteRenderer.Rectangle.Height
+                    (
+                        (int)(gameObject.transform.position.X + spriteRenderer.Offset.X),
+                        (int)(gameObject.transform.position.Y + spriteRenderer.Offset.Y),
+                        spriteRenderer.Rectangle.Width,
+                        spriteRenderer.Rectangle.Height
                     );
             }
         }
-
-        //    public bool IsCollideWith { get => isCollideWith; set => isCollideWith = value; }
-
-        public void Update()
+        public Collider(GameObject gameObject) : base(gameObject)
         {
-            CheckCollision();
+            CheckCollisions = true;
+            GameWorld.Instance.getColliders.Add(this);
+
         }
+
         public void LoadContent(ContentManager content)
         {
             spriteRenderer = (SpriteRenderer)gameObject.GetComponets("SpriteRenderer");
+
             texture = content.Load<Texture2D>("Rectangle");
         }
 
@@ -66,30 +53,26 @@ namespace SurvivalExam
         public void Draw(SpriteBatch spriteBatch)
         {
 
+            spriteBatch.Draw(texture, CollisionBox, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+
             //Rectangle topLine = new Rectangle(CollisionBox.X, CollisionBox.Y, CollisionBox.Width, 1);
             //Rectangle bottomLine = new Rectangle(CollisionBox.X, CollisionBox.Y + CollisionBox.Height, CollisionBox.Width, 1);
             //Rectangle rightLine = new Rectangle(CollisionBox.X + CollisionBox.Width, CollisionBox.Y, 1, CollisionBox.Height);
             //Rectangle leftLine = new Rectangle(CollisionBox.X, CollisionBox.Y, 1, CollisionBox.Height);
 
-            spriteBatch.Draw(texture, CollisionBox, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 1);
-
-            /*if (isCollideWith)
-            {
-                spriteBatch.Draw(texture, CollisionBox, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 1);
-            }
-            else
-            {
-                spriteBatch.Draw(texture, CollisionBox, null, Color.Yellow, 0, Vector2.Zero, SpriteEffects.None, 1);
-            }*/
-
+            //spriteBatch.Draw(texture, topLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             //spriteBatch.Draw(texture, bottomLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             //spriteBatch.Draw(texture, rightLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             //spriteBatch.Draw(texture, leftLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
         }
 
+        public void Update()
+        {
+            CheckCollision();
+        }
         private void CheckCollision()
         {
-            if (doCollisionCheck)
+            if (CheckCollisions)
             {
                 foreach (Collider other in GameWorld.Instance.getColliders)
                 {
@@ -98,7 +81,17 @@ namespace SurvivalExam
                         if (CollisionBox.Intersects(other.CollisionBox))
                         {
                             gameObject.OnCollisionStay(other);
-                            gameObject.OnCollissionEnter(other);
+
+                            if (!otherCollider.Contains(other))
+                            {
+                                otherCollider.Add(other);
+                                gameObject.OnCollissionEnter(other);
+                            }
+
+                        }
+                        else if (otherCollider.Contains(other))
+                        {
+                            otherCollider.Remove(other);
                             gameObject.OnCollisionExit(other);
                         }
                     }

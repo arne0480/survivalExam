@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,7 +13,8 @@
     <AssemblyName>Radical Survival</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -47,7 +48,9 @@
     <Compile Include="Camera.cs" />
     <Compile Include="Collider.cs" />
     <Compile Include="Component.cs" />
+    <Compile Include="Database\UserFac.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="FollowTarget.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameWorld.cs" />
     <Compile Include="HealthBar.cs" />
@@ -72,9 +75,38 @@
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\..\..\..\..\..\..\source\repos\Simple Login System\Simple Login System\bin\Debug\System.Data.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <Content Include="bin\Windows\x86\Debug\Radical Survival.exe" />
+    <Content Include="bin\Windows\x86\Debug\Radical Survival.pdb" />
+    <Content Include="bin\Windows\x86\NetRevisionTool.exe" />
+    <Content Include="bin\Windows\x86\Release\MonoGame.Framework.dll" />
+    <Content Include="bin\Windows\x86\Release\MonoGame.Framework.xml" />
+    <Content Include="bin\Windows\x86\Release\Radical Survival.exe" />
+    <Content Include="bin\Windows\x86\Release\Radical Survival.pdb" />
+    <Content Include="bin\Windows\x86\Release\SharpDX.Direct2D1.dll" />
+    <Content Include="bin\Windows\x86\Release\SharpDX.Direct2D1.xml" />
+    <Content Include="bin\Windows\x86\Release\SharpDX.Direct3D11.dll" />
+    <Content Include="bin\Windows\x86\Release\SharpDX.Direct3D11.xml" />
+    <Content Include="bin\Windows\x86\Release\SharpDX.Direct3D9.dll" />
+    <Content Include="bin\Windows\x86\Release\SharpDX.Direct3D9.xml" />
+    <Content Include="bin\Windows\x86\Release\SharpDX.dll" />
+    <Content Include="bin\Windows\x86\Release\SharpDX.DXGI.dll" />
+    <Content Include="bin\Windows\x86\Release\SharpDX.DXGI.xml" />
+    <Content Include="bin\Windows\x86\Release\SharpDX.MediaFoundation.dll" />
+    <Content Include="bin\Windows\x86\Release\SharpDX.MediaFoundation.xml" />
+    <Content Include="bin\Windows\x86\Release\SharpDX.XAudio2.dll" />
+    <Content Include="bin\Windows\x86\Release\SharpDX.XAudio2.xml" />
+    <Content Include="bin\Windows\x86\Release\SharpDX.XInput.dll" />
+    <Content Include="bin\Windows\x86\Release\SharpDX.XInput.xml" />
+    <Content Include="bin\Windows\x86\Release\SharpDX.xml" />
+=======
     <Content Include="Content\adventurer-1.2-Sheet.png" />
     <Content Include="Content\adventurer-Sheet.png" />
     <Content Include="Content\AxeBanditFullSheet.png" />
@@ -86,13 +118,29 @@
     <Content Include="Content\Health bar.png" />
     <Content Include="Content\Rectangle.png" />
     <Content Include="Content\Rectangle1.png" />
+>>>>>>> Daniel
     <Content Include="Icon.ico" />
     <Content Include="RadicalSurvival.ico" />
     <Content Include="Sounds\Cinematic Documentary - AShamaluevMusic.mp3" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
+    <None Include="app.config" />
     <None Include="app.manifest" />
+<<<<<<< HEAD
+    <None Include="bin\Windows\x86\Debug\Surviel.db" />
+=======
+<<<<<<< HEAD
+>>>>>>> Daniel
+    <None Include="bin\Windows\x86\Release\Content\adventurer-1.2-Sheet.xnb" />
+    <None Include="bin\Windows\x86\Release\Content\adventurer-Sheet.xnb" />
+    <None Include="bin\Windows\x86\Release\Content\AxeBanditFullSheet.xnb" />
+    <None Include="bin\Windows\x86\Release\Content\AxeBanditFullSheetV2.xnb" />
+    <None Include="bin\Windows\x86\Release\Content\CollisionTexture.xnb" />
+    <None Include="bin\Windows\x86\Release\Content\FullBG1.xnb" />
+    <None Include="bin\Windows\x86\Release\Content\Rectangle.xnb" />
+    <None Include="bin\Windows\x86\Release\Content\Rectangle1.xnb" />
+=======
     <None Include="Content\bin\Windows\adventurer-1.2-Sheet.xnb" />
     <None Include="Content\bin\Windows\adventurer-Sheet.xnb" />
     <None Include="Content\bin\Windows\AxeBanditFullSheet.xnb" />
@@ -104,6 +152,7 @@
     <None Include="Content\obj\Windows\AxeBanditFullSheet.mgcontent" />
     <None Include="Content\obj\Windows\AxeBanditFullSheetV2.mgcontent" />
     <None Include="Content\obj\Windows\FullBG1.mgcontent" />
+>>>>>>> Daniel
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

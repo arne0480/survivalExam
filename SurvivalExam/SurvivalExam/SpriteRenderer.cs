@@ -14,23 +14,16 @@ namespace SurvivalExam
     {
         private Rectangle rectangle;
 
-        Texture2D sprite;
+        Texture2D Sprite { get; set; }
         string pictureName;
         float layer;
+        public Color Color { get; set; } = Color.White;
         private float scale;
-        public Vector2 Offset;
+        public Vector2 Offset { get; set; }
         private GameObject gameObject;
 
-        public Rectangle Rectangle
-        {
-            get { return rectangle; }
-            set { rectangle = value; }
-        }
-        public Texture2D Sprite
-        {
-            get { return sprite; }
-            set { sprite = value; }
-        }
+        public Rectangle Rectangle { get; set; }
+
         public SpriteRenderer(GameObject gameObject, string pictureName, float layer, float scale) : base(gameObject)
         {
             this.pictureName = pictureName;
@@ -44,12 +37,13 @@ namespace SurvivalExam
         }
         public void LoadContent(ContentManager content)
         {
-            sprite = content.Load<Texture2D>(pictureName);
-            this.rectangle = new Rectangle(0, 0, sprite.Width, sprite.Height);
+            Sprite = content.Load<Texture2D>(pictureName);
+            this.rectangle = new Rectangle(0, 0, Sprite.Width, Sprite.Height);
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, gameObject.GetTransform.Position, rectangle, Color.White, 0, -Offset, scale, SpriteEffects.None, layer);
+           spriteBatch.Draw(Sprite, gameObject.transform.position + Offset, Rectangle, Color, 0, Vector2.Zero, 1, SpriteEffects.None, layer);
+
         }
     }
 }
