@@ -131,7 +131,7 @@ namespace SurvivalExam
                 go.LoadContent(Content);
             }
 
-            backgroundMusic = Content.Load<Song>("Cinematic Documentary - AShamaluevMusic");
+            backgroundMusic = Content.Load<Song>("Emotional - AShamaluevMusic");
             MediaPlayer.Play(backgroundMusic); //Spiller musik
             MediaPlayer.IsRepeating = true; //Repeater sangen efter den er færdig med at spille
             MediaPlayer.Volume = 0.5f; //Sætter lydstyrken på sangen

@@ -97,12 +97,6 @@
 /processorParam:TextureFormat=Color
 /build:Rectangle1.png
 
-#begin Cinematic Documentary - AShamaluevMusic.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Cinematic Documentary - AShamaluevMusic.mp3
-
 #begin CollisionTexture.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -126,4 +120,10 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:FullbackgroundV2.png
+
+#begin Emotional - AShamaluevMusic.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Emotional - AShamaluevMusic.mp3
 

@@ -86,6 +86,7 @@
   <ItemGroup>
     <Content Include="bin\Windows\x86\Debug\Radical Survival.exe" />
     <Content Include="bin\Windows\x86\Debug\Radical Survival.pdb" />
+    <Content Include="bin\Windows\x86\Debug\System.Data.SQLite.dll" />
     <Content Include="bin\Windows\x86\NetRevisionTool.exe" />
     <Content Include="bin\Windows\x86\Release\MonoGame.Framework.dll" />
     <Content Include="bin\Windows\x86\Release\MonoGame.Framework.xml" />
