@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -33,11 +34,9 @@ namespace SurvivalExam
 
         static Mutex m = new Mutex();
         static Semaphore semaphore = new Semaphore(1, 1);
-        Thread thread;
 
         private Texture2D backgroundTexture;
         private Rectangle backgroundRectangle;
-        Camera camera;
 
 
         public static GameWorld Instance //implementering af singleton
@@ -72,18 +71,22 @@ namespace SurvivalExam
             // TODO: Add your initialization logic here
 
             //giver spilleren forskellige komponenter, som går at den kan blive vist på skærmen
-            GameObject go = new GameObject();
-            go.AddComponet(new Collider(go));
-            go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 1)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
-            go.AddComponet(new Animator(go));
-            go.AddComponet(new Transform(go, Vector2.Zero));
-            go.AddComponet(new Player(go));
-            //go.AddComponet(new Camera(viewport));
-            go.transform.position = new Vector2(350, 200);
-            go.Tag = "Player";
-            gameObjectList.Add(go);
+            UserFac userFac = new UserFac();
+            DataTable dt = userFac.SelectAllInTable();
+            foreach (DataRow row in dt.Rows)
+            {
+                GameObject go = new GameObject();
+                go.AddComponet(new Collider(go));
+                go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 1)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
+                go.AddComponet(new Animator(go));
+                go.AddComponet(new Transform(go, Vector2.Zero));
+                go.AddComponet(new Player(go));
+                //go.AddComponet(new Camera(viewport));
+                go.transform.position = new Vector2(350, 200);
+                go.Tag = "Player";
+                gameObjectList.Add(go);
 
-
+            }
             //giver enemy forskellige komponenter, som går at den kan blive vist på skærmen
             GameObject goEnemy = new GameObject();
             goEnemy.AddComponet(new SpriteRenderer(goEnemy, "AxeBanditFullSheetV2", 0, 1));
@@ -128,7 +131,7 @@ namespace SurvivalExam
                 go.LoadContent(Content);
             }
 
-            backgroundMusic = Content.Load<Song>("Cinematic Documentary - AShamaluevMusic");
+            backgroundMusic = Content.Load<Song>("Emotional - AShamaluevMusic");
             MediaPlayer.Play(backgroundMusic); //Spiller musik
             MediaPlayer.IsRepeating = true; //Repeater sangen efter den er færdig med at spille
             MediaPlayer.Volume = 0.5f; //Sætter lydstyrken på sangen
@@ -186,7 +189,8 @@ namespace SurvivalExam
             {
                 go.Draw(spriteBatch);
             }
-
+           
+            
             spriteBatch.End();
             base.Draw(gameTime);
         }
