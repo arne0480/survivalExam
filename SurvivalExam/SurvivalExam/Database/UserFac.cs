@@ -44,18 +44,18 @@ namespace SurvivalExam
             command.ExecuteNonQuery();
             dbConn.Close();
         }
-        public DataTable SelectAllInTable()
+        public DataTable SelectAllInTable() // metode til at vælge alle fra tabellen User
         {
-            dbConn.Open();
+            dbConn.Open(); // åbner forbindelsen til databasen
 
-            DataTable dt = new DataTable();
-            sql = "select * from user order by id desc";
-            command = new SQLiteCommand(sql, dbConn);
-            SQLiteDataReader reader = command.ExecuteReader();
-            dt.Load(reader);
-            dbConn.Close();
+            DataTable dt = new DataTable(); // opretter en datatabel
+            sql = "select * from user order by id desc"; // sql komandoen til at vælge alle brugerer 
+            command = new SQLiteCommand(sql, dbConn); // sender sql komandoen og forbindelsen videre
+            SQLiteDataReader reader = command.ExecuteReader(); // eksikvere kommandoen
+            dt.Load(reader); // læser datatablen
+            dbConn.Close(); // lukker forbindelsen til databasen
 
-            return dt;
+            return dt; //retunere datatablen
         }
     }
 }
