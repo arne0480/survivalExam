@@ -87,7 +87,6 @@ namespace SurvivalExam
                                 otherCollider.Add(other);
                                 gameObject.OnCollissionEnter(other);
                             }
-
                         }
                         else if (otherCollider.Contains(other))
                         {
