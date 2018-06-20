@@ -15,6 +15,7 @@ namespace SurvivalExam
         public Transform transform;
 
         public string Tag { get; set; } = "Untagged";
+        int health;
 
 
         List<Component> componets = new List<Component>();
@@ -22,6 +23,7 @@ namespace SurvivalExam
         public GameObject()
         {
             this.transform = new Transform(this, Vector2.Zero);
+            
             AddComponet(transform);
         }
 

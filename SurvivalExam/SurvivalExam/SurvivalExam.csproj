@@ -27,7 +27,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\$(MonoGamePlatform)\$(Platform)\$(Configuration)\</OutputPath>
@@ -114,6 +114,7 @@
     <Content Include="obj\x86\Debug\SurvivalExam.csproj.FileListAbsolute.txt" />
     <Content Include="RadicalSurvival.ico" />
     <Content Include="Sounds\Cinematic Documentary - AShamaluevMusic.mp3" />
+    <Content Include="Sounds\Emotional - AShamaluevMusic.mp3" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

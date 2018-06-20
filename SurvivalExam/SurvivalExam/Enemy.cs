@@ -20,12 +20,36 @@ namespace SurvivalExam
         private GameObject player;
         bool isAlive;
         bool threadStart = false;
+        private int health;
+        Player playerHealth;
         //static Semaphore semaphore = new Semaphore(1, 1);
         //static Mutex m = new Mutex();
 
         public Enemy(GameObject gameObject) : base(gameObject)
         {
 
+        }
+        public int Health
+        {
+            get
+            {
+                if (health < 0)
+                {
+                    health = 0;
+                }
+                return health;
+            }
+            set
+            {
+                if (value <= 100)
+                {
+                    health = value;
+                }
+            }
+        }
+        public void SetHealth(int health)
+        {
+            this.health = health;
         }
 
         public void Update()
@@ -104,12 +128,13 @@ namespace SurvivalExam
         public void OnCollisionExit(Collider other)
         {
             (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
-
+          //  playerHealth.Health -= 10;
         }
         public void OnCollisionEnter(Collider other)
         {
 
             (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
+           
         }
     }
 }

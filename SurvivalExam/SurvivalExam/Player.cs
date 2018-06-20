@@ -16,17 +16,20 @@ namespace SurvivalExam
     class Player : Component, IAnimateable, IUpdate, ILoad, ICollisionStay, ICollisionEnter, ICollisionExit
     {
         private float speed = 100;
+        public  static int health;
+        Enemy takeDMG;
         IStrategy strategy;
         bool canPlayerMove = true;
+        bool isAlive = true;
         Animator animator;
         DIRECTION currentDirection;
         Vector2 translation = Vector2.Zero;
 
         Collider mycolider;
 
-        public Player(GameObject gameObject) : base(gameObject)
+        public Player(GameObject gameObject, int health) : base(gameObject)
         {
-
+            this.Health = health;
         }
         public void Update()
         {
@@ -63,6 +66,7 @@ namespace SurvivalExam
                 canPlayerMove = true;
             }
         }
+
         public void CreatAnimation()
         {
             animator.CreateAnimation("IdleLeft", new Animation(6, 320, 0, 80, 80, 7, new Vector2(0, 0)));
@@ -99,6 +103,7 @@ namespace SurvivalExam
 
         public void OnCollisionStay(Collider other)
         {
+
             Collider collider = (Collider)gameObject.GetComponets("Collider");
             if (collider.CollisionBox.Bottom >= other.CollisionBox.Top && collider.CollisionBox.Bottom - 10 <= other.CollisionBox.Top) //Tjekker collision i toppen
             {
@@ -124,11 +129,38 @@ namespace SurvivalExam
         public void OnCollisionEnter(Collider other)
         {
             (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.DarkRed;
+            if (health <= 0)
+            {
+                (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.Blue;
+            }
+            health -= 10;
         }
 
         public void OnCollisionExit(Collider other)
         {
             (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
         }
+        public int Health
+        {
+
+            get
+            {
+                if (health < 0)
+                {
+                    health = 0;
+                }
+                return health;
+            }
+            set
+            {
+                if (value <= 100)
+                {
+                    health = value;
+                }
+
+            }
+        }
+
+
     }
 }
