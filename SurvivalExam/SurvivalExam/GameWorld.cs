@@ -22,7 +22,9 @@ namespace SurvivalExam
 
         SpriteBatch spriteBatch;
         private Song backgroundMusic;
-
+        private SpriteFont healthText;
+        private Enemy takeDMG;
+        private Player playerHealth;
 
         static GameWorld instance;
         public float deltaTime;
@@ -80,7 +82,7 @@ namespace SurvivalExam
                 go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 1)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
                 go.AddComponet(new Animator(go));
                 go.AddComponet(new Transform(go, Vector2.Zero));
-                go.AddComponet(new Player(go));
+                go.AddComponet(new Player(go, 100));
                 //go.AddComponet(new Camera(viewport));
                 go.transform.position = new Vector2(350, 200);
                 go.Tag = "Player";
@@ -136,7 +138,7 @@ namespace SurvivalExam
             MediaPlayer.IsRepeating = true; //Repeater sangen efter den er færdig med at spille
             MediaPlayer.Volume = 0.5f; //Sætter lydstyrken på sangen
 
-
+            healthText = Content.Load<SpriteFont>("File");
             backgroundTexture = Content.Load<Texture2D>("FullbackgroundV2");
             backgroundRectangle = new Rectangle(0, 0, backgroundTexture.Width, backgroundTexture.Height);
         }
@@ -189,8 +191,10 @@ namespace SurvivalExam
             {
                 go.Draw(spriteBatch);
             }
-           
-            
+
+            spriteBatch.DrawString(healthText, "Health: " + Player.health, new Vector2(20, 20), Color.White);
+
+
             spriteBatch.End();
             base.Draw(gameTime);
         }
