@@ -25,7 +25,7 @@ namespace Simple_Login_System
             login.ShowDialog();
 
             username = login.usernames;
-            lblWelcome.Text = "Welcome, " + username + " !";
+            lblWelcome.Text = "Welcome to Radical Survival, " + username + "!";
         }
 
         private void btnStartGame_Click(object sender, EventArgs e) //Skulle have startet spillet, men har PT ikke nogen funktion

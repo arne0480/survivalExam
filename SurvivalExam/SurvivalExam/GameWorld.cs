@@ -85,7 +85,7 @@ namespace SurvivalExam
                 go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 1)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
                 go.AddComponet(new Animator(go));
                 go.AddComponet(new Transform(go, Vector2.Zero));
-                go.AddComponet(new Player(go, 110));
+                go.AddComponet(new Player(go, 120));
                 //go.AddComponet(new Camera(viewport));
                 go.transform.position = new Vector2(350, 200);
                 go.Tag = "Player";
