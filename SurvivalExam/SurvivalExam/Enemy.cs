@@ -25,9 +25,9 @@ namespace SurvivalExam
         //static Semaphore semaphore = new Semaphore(1, 1);
         //static Mutex m = new Mutex();
 
-        public Enemy(GameObject gameObject) : base(gameObject)
+        public Enemy(GameObject gameObject, int health) : base(gameObject)
         {
-
+            this.health = health;
         }
         public int Health
         {
@@ -128,13 +128,16 @@ namespace SurvivalExam
         public void OnCollisionExit(Collider other)
         {
             (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
-          //  playerHealth.Health -= 10;
+          
         }
         public void OnCollisionEnter(Collider other)
         {
-
             (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.Red;
-           
+            if (health <= 0)
+            {
+                (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.Blue;
+            }
+            health -= 10;
         }
     }
 }

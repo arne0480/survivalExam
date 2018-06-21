@@ -25,6 +25,7 @@ namespace SurvivalExam
         private SpriteFont healthText;
         private Enemy takeDMG;
         private Player playerHealth;
+        private int health;
 
         static GameWorld instance;
         public float deltaTime;
@@ -52,6 +53,8 @@ namespace SurvivalExam
                 return instance;
             }
         }
+
+        public int Health { get => health; set => health = value; }
 
         public GameWorld()
         {
@@ -82,7 +85,7 @@ namespace SurvivalExam
                 go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 1)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
                 go.AddComponet(new Animator(go));
                 go.AddComponet(new Transform(go, Vector2.Zero));
-                go.AddComponet(new Player(go, 100));
+                go.AddComponet(new Player(go, 110));
                 //go.AddComponet(new Camera(viewport));
                 go.transform.position = new Vector2(350, 200);
                 go.Tag = "Player";
@@ -93,7 +96,7 @@ namespace SurvivalExam
             GameObject goEnemy = new GameObject();
             goEnemy.AddComponet(new SpriteRenderer(goEnemy, "AxeBanditFullSheetV2", 0, 1));
             goEnemy.AddComponet(new Animator(goEnemy));
-            goEnemy.AddComponet(new Enemy(goEnemy));
+            goEnemy.AddComponet(new Enemy(goEnemy, 100));
             goEnemy.AddComponet(new Collider(goEnemy));
             goEnemy.AddComponet(new Transform(goEnemy, Vector2.Zero));
             goEnemy.transform.position = new Vector2(600, 600);
@@ -107,7 +110,7 @@ namespace SurvivalExam
             GameObject goEnemySecond = new GameObject();
             goEnemySecond.AddComponet(new SpriteRenderer(goEnemySecond, "AxeBanditFullSheetV2", 0, 1));
             goEnemySecond.AddComponet(new Animator(goEnemySecond));
-            goEnemySecond.AddComponet(new Enemy(goEnemySecond));
+            goEnemySecond.AddComponet(new Enemy(goEnemySecond, 100));
             goEnemySecond.AddComponet(new Collider(goEnemySecond));
             goEnemySecond.AddComponet(new Transform(goEnemySecond, Vector2.Zero));
             goEnemySecond.transform.position = new Vector2(500, 50);
@@ -192,7 +195,7 @@ namespace SurvivalExam
                 go.Draw(spriteBatch);
             }
 
-            spriteBatch.DrawString(healthText, "Health: " + Player.health, new Vector2(20, 20), Color.White);
+            spriteBatch.DrawString(healthText, "Health: " + Health, new Vector2(20, 20), Color.White);
 
 
             spriteBatch.End();
