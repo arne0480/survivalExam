@@ -26,7 +26,7 @@ namespace SurvivalExam
         public void Update()
         {
 
-            timeElapse += GameWorld.Instance.deltaTime;
+            timeElapse += GameWorld.Instance.DeltaTime;
             currentIndex = (int)(timeElapse * fps);
 
             if (currentIndex > rectangles.Length - 1)

@@ -18,10 +18,13 @@ namespace SurvivalExam
         private Animator animator;
         DIRECTION currentDirection;
         private GameObject player;
-        bool isAlive;
+        bool isAlive, collisionTimeout = false;
         bool threadStart = false;
         private int health;
-        Player playerHealth;
+        float a = 1;
+        Thread thread;
+        
+
         //static Semaphore semaphore = new Semaphore(1, 1);
         //static Mutex m = new Mutex();
 
@@ -57,7 +60,7 @@ namespace SurvivalExam
 
             if (threadStart == false)
             {
-                Thread thread = new Thread(new ThreadStart(CheckForPlayer));
+                thread = new Thread(new ThreadStart(CheckForPlayer));
                 isAlive = true;
                 thread.IsBackground = true;
                 thread.Start();
@@ -68,6 +71,7 @@ namespace SurvivalExam
                 strategy.Execute(ref currentDirection);
             }
             //   CheckForPlayer();
+            a -= GameWorld.Instance.DeltaTime;
         }
 
         public void CheckForPlayer()
@@ -75,18 +79,26 @@ namespace SurvivalExam
 
             while (isAlive)
             {
-                if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 150 && !(strategy is FollowTarget))
+                if (a <= 0)
                 {
-                    strategy = new FollowTarget(player.transform, gameObject.transform, animator);
+                    if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 150 && !(strategy is FollowTarget))
+                    {
+                        strategy = new FollowTarget(player.transform, gameObject.transform, animator);
+                    }
+                    a = 1;
                 }
-                else if (Vector2.Distance(gameObject.transform.position, player.transform.position) > 150 && !(strategy is Idle))
+                else if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 80 && !(strategy is Attack))
+                {
+                    strategy = new Attack(animator);
+
+                }
+                if (Vector2.Distance(gameObject.transform.position, player.transform.position) > 150 && !(strategy is Idle))
                 {
                     strategy = new Idle(animator);
                 }
-                if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 80 && !(strategy is Attack))
-                {
-                    strategy = new Attack(animator);
-                }
+                
+                
+                
             }
         }
 
@@ -128,7 +140,7 @@ namespace SurvivalExam
         public void OnCollisionExit(Collider other)
         {
             (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
-          
+
         }
         public void OnCollisionEnter(Collider other)
         {
@@ -140,8 +152,7 @@ namespace SurvivalExam
             {
                 (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.Blue;
             }
-
-
+            collisionTimeout = true;
         }
     }
 }

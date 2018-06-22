@@ -28,7 +28,7 @@ namespace SurvivalExam
         private int health;
 
         static GameWorld instance;
-        public float deltaTime;
+        private float deltaTime;
         List<GameObject> gameObjectList = new List<GameObject>();
         List<Collider> colliders = new List<Collider>();
         public List<Collider> getColliders = new List<Collider>();
@@ -55,6 +55,7 @@ namespace SurvivalExam
         }
 
         public int Health { get => health; set => health = value; }
+        public float DeltaTime { get => deltaTime; }
 
         public GameWorld()
         {

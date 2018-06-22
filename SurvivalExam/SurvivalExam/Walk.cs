@@ -57,7 +57,7 @@ namespace SurvivalExam
                 translation += new Vector2(1, 0);
             }
 
-            gameObject.transform.Translate(translation * GameWorld.Instance.deltaTime * speed);
+            gameObject.transform.Translate(translation * GameWorld.Instance.DeltaTime * speed);
         }
     }
 }

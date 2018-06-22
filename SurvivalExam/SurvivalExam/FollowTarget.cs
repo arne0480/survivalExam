@@ -49,7 +49,7 @@ namespace SurvivalExam
                 currentDirection = Right;
             }
 
-            transform.Translate(translation * movementSpeed * GameWorld.Instance.deltaTime);
+            transform.Translate(translation * movementSpeed * GameWorld.Instance.DeltaTime);
 
             animator.PlayAnimations("Walk" + currentDirection);
         }
