@@ -18,7 +18,7 @@ namespace SurvivalExam
         private Animator animator;
         DIRECTION currentDirection;
         private GameObject player;
-        bool isAlive, collisionTimeout = false;
+        bool isAlive;
         bool threadStart = false;
         private int health;
         float a = 1;
@@ -97,8 +97,6 @@ namespace SurvivalExam
                     strategy = new Idle(animator);
                 }
                 
-                
-                
             }
         }
 
@@ -152,7 +150,6 @@ namespace SurvivalExam
             {
                 (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.Blue;
             }
-            collisionTimeout = true;
         }
     }
 }
