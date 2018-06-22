@@ -87,7 +87,7 @@ namespace SurvivalExam
                     }
                     a = 1;
                 }
-                else if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 80 && !(strategy is Attack))
+                else if (Vector2.Distance(gameObject.transform.position, player.transform.position) <= 79 && !(strategy is Attack))
                 {
                     strategy = new Attack(animator);
 

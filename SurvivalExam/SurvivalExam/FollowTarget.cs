@@ -14,7 +14,7 @@ namespace SurvivalExam
     {
         private Transform target;
         private Transform transform;
-        private float movementSpeed = 60;
+        private float movementSpeed = 40;
         private Animator animator;
 
         public FollowTarget(Transform target, Transform transform, Animator animator)
