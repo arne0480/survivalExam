@@ -96,7 +96,7 @@ namespace SurvivalExam
             GameObject goEnemy = new GameObject();
             goEnemy.AddComponet(new SpriteRenderer(goEnemy, "AxeBanditFullSheetV2", 0, 1));
             goEnemy.AddComponet(new Animator(goEnemy));
-            goEnemy.AddComponet(new Enemy(goEnemy, 100));
+            goEnemy.AddComponet(new Enemy(goEnemy, 120));
             goEnemy.AddComponet(new Collider(goEnemy));
             goEnemy.AddComponet(new Transform(goEnemy, Vector2.Zero));
             goEnemy.transform.position = new Vector2(600, 600);
@@ -109,11 +109,11 @@ namespace SurvivalExam
             GameObject goEnemySecond = new GameObject();
             goEnemySecond.AddComponet(new SpriteRenderer(goEnemySecond, "AxeBanditFullSheetV2", 0, 1));
             goEnemySecond.AddComponet(new Animator(goEnemySecond));
-            goEnemySecond.AddComponet(new Enemy(goEnemySecond, 100));
+            goEnemySecond.AddComponet(new Enemy(goEnemySecond, 120));
             goEnemySecond.AddComponet(new Collider(goEnemySecond));
             goEnemySecond.AddComponet(new Transform(goEnemySecond, Vector2.Zero));
             goEnemySecond.transform.position = new Vector2(500, 50);
-            goEnemySecond.Tag = "Enemy";
+            goEnemySecond.Tag = "EnemySecond";
             gameObjectList.Add(goEnemySecond);
 
 

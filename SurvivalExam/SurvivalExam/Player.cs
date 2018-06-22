@@ -130,14 +130,14 @@ namespace SurvivalExam
         public void OnCollisionEnter(Collider other)
         {
             health -= 10;
-            if (health <= 100)
+
+            if (health >= 100)
             {
                 (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
             }
             else
             {
                 (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.DarkRed;
-
             }
             if (health <= 0)
             {
