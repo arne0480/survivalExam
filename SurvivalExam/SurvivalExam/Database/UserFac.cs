@@ -12,7 +12,7 @@ namespace SurvivalExam
 
     class UserFac
     {
-        static SQLiteConnection dbConn = new SQLiteConnection("Data Source=Surviel.db;Version=3");
+        static SQLiteConnection dbConn = new SQLiteConnection("Data Source=C:\\SurvivalExamdb\\Account.db;Version=3");
         static SQLiteCommand command;
         static string sql;
 

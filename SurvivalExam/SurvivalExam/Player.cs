@@ -16,7 +16,7 @@ namespace SurvivalExam
     class Player : Component, IAnimateable, IUpdate, ILoad, ICollisionStay, ICollisionEnter, ICollisionExit
     {
         private float speed = 100;
-        public  static int health;
+        int health;
         Enemy takeDMG;
         IStrategy strategy;
         bool canPlayerMove = true;
@@ -29,10 +29,11 @@ namespace SurvivalExam
 
         public Player(GameObject gameObject, int health) : base(gameObject)
         {
-            this.Health = health;
+            this.health = health;
         }
         public void Update()
         {
+            GameWorld.Instance.Health = health;
             mycolider = gameObject.GetComponets("Collider") as Collider;
             Vector2 translation = Vector2.Zero;
 
@@ -105,22 +106,22 @@ namespace SurvivalExam
         {
 
             Collider collider = (Collider)gameObject.GetComponets("Collider");
-            if (collider.CollisionBox.Bottom >= other.CollisionBox.Top && collider.CollisionBox.Bottom - 10 <= other.CollisionBox.Top) //Tjekker collision i toppen
+            if (collider.CollisionBox.Bottom >= other.CollisionBox.Top && collider.CollisionBox.Bottom - 5 <= other.CollisionBox.Top) //Tjekker collision i toppen
             {
                 gameObject.transform.CorrectMove(new Vector2(0, other.CollisionBox.Top - collider.CollisionBox.Bottom + 1));
             }
 
-            if (collider.CollisionBox.Top <= other.CollisionBox.Bottom && collider.CollisionBox.Top + 10 >= other.CollisionBox.Bottom) //Tjekker collision i bunden
+            if (collider.CollisionBox.Top <= other.CollisionBox.Bottom && collider.CollisionBox.Top + 5 >= other.CollisionBox.Bottom) //Tjekker collision i bunden
             {
                 gameObject.transform.CorrectMove(new Vector2(0, other.CollisionBox.Bottom - collider.CollisionBox.Top - 1));
             }
 
-            if (collider.CollisionBox.Right >= other.CollisionBox.Left && collider.CollisionBox.Right - 10 <= other.CollisionBox.Left) //Tjekker collision i venstre side
+            if (collider.CollisionBox.Right >= other.CollisionBox.Left && collider.CollisionBox.Right - 5 <= other.CollisionBox.Left) //Tjekker collision i venstre side
             {
                 gameObject.transform.CorrectMove(new Vector2(other.CollisionBox.Left - collider.CollisionBox.Right + 1, 0));
             }
 
-            if (collider.CollisionBox.Left <= other.CollisionBox.Right && collider.CollisionBox.Left + 10 >= other.CollisionBox.Right) //Tjekker collision i højre side
+            if (collider.CollisionBox.Left <= other.CollisionBox.Right && collider.CollisionBox.Left + 5 >= other.CollisionBox.Right) //Tjekker collision i højre side
             {
                 gameObject.transform.CorrectMove(new Vector2(other.CollisionBox.Right - collider.CollisionBox.Left - 1, 0));
             }
@@ -128,39 +129,26 @@ namespace SurvivalExam
 
         public void OnCollisionEnter(Collider other)
         {
-            (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.DarkRed;
+            health -= 10;
+
+            if (health >= 100)
+            {
+                (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
+            }
+            else
+            {
+                (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.DarkRed;
+            }
             if (health <= 0)
             {
                 (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.Blue;
             }
-            health -= 10;
+
         }
 
         public void OnCollisionExit(Collider other)
         {
             (other.gameObject.GetComponets("SpriteRenderer") as SpriteRenderer).Color = Color.White;
         }
-        public int Health
-        {
-
-            get
-            {
-                if (health < 0)
-                {
-                    health = 0;
-                }
-                return health;
-            }
-            set
-            {
-                if (value <= 100)
-                {
-                    health = value;
-                }
-
-            }
-        }
-
-
     }
 }
