@@ -16,8 +16,6 @@ namespace SurvivalExam
 
         private HashSet<Collider> otherCollider = new HashSet<Collider>();
 
-
-
         public bool CheckCollisions
         { get; set; }
 

@@ -31,6 +31,7 @@ namespace Simple_Login_System
         private void btnStartGame_Click(object sender, EventArgs e) //Skulle have startet spillet, men har PT ikke nogen funktion
         {
             SurvivalExam.Program.Main();
+            this.Close();
         }
     }
 }

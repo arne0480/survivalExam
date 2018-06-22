@@ -105,7 +105,6 @@ namespace SurvivalExam
             gameObjectList.Add(goEnemy);
 
 
-
             //giver enemy forskellige komponenter, som går at den kan blive vist på skærmen
             GameObject goEnemySecond = new GameObject();
             goEnemySecond.AddComponet(new SpriteRenderer(goEnemySecond, "AxeBanditFullSheetV2", 0, 1));
