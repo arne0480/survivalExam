@@ -77,30 +77,31 @@ namespace SurvivalExam
             // TODO: Add your initialization logic here
 
             //giver spilleren forskellige komponenter, som går at den kan blive vist på skærmen
-            UserFac userFac = new UserFac();
-            DataTable dt = userFac.SelectAllInTable();
-            foreach (DataRow row in dt.Rows)
-            {
+            //UserFac userFac = new UserFac();
+            //DataTable dt = userFac.SelectAllInTable();
+            //foreach (DataRow row in dt.Rows)
+            //{
                 GameObject go = new GameObject();
                 go.AddComponet(new Collider(go));
                 go.AddComponet(new SpriteRenderer(go, "AxeBanditFullSheetV2", 0, 1)); //Tilføjer billed via navn, hvilket lag den skal have og scalering den skal have
                 go.AddComponet(new Animator(go));
                 go.AddComponet(new Transform(go, Vector2.Zero));
-                go.AddComponet(new Player(go, 120));
+                go.AddComponet(new Player(go, 100));
                 //go.AddComponet(new Camera(viewport));
                 go.transform.position = new Vector2(350, 200);
                 go.Tag = "Player";
                 gameObjectList.Add(go);
 
-            }
+            //}
             //giver enemy forskellige komponenter, som går at den kan blive vist på skærmen
             GameObject goEnemy = new GameObject();
             goEnemy.AddComponet(new SpriteRenderer(goEnemy, "AxeBanditFullSheetV2", 0, 1));
             goEnemy.AddComponet(new Animator(goEnemy));
-            goEnemy.AddComponet(new Enemy(goEnemy, 120));
+            
             goEnemy.AddComponet(new Collider(goEnemy));
             goEnemy.AddComponet(new Transform(goEnemy, Vector2.Zero));
             goEnemy.transform.position = new Vector2(600, 600);
+            goEnemy.AddComponet(new Enemy(goEnemy, 120));
             goEnemy.Tag = "Enemy";
 
             gameObjectList.Add(goEnemy);
@@ -110,10 +111,11 @@ namespace SurvivalExam
             GameObject goEnemySecond = new GameObject();
             goEnemySecond.AddComponet(new SpriteRenderer(goEnemySecond, "AxeBanditFullSheetV2", 0, 1));
             goEnemySecond.AddComponet(new Animator(goEnemySecond));
-            goEnemySecond.AddComponet(new Enemy(goEnemySecond, 120));
             goEnemySecond.AddComponet(new Collider(goEnemySecond));
             goEnemySecond.AddComponet(new Transform(goEnemySecond, Vector2.Zero));
             goEnemySecond.transform.position = new Vector2(500, 50);
+            goEnemySecond.AddComponet(new Enemy(goEnemySecond, 120));
+
             goEnemySecond.Tag = "EnemySecond";
             gameObjectList.Add(goEnemySecond);
 

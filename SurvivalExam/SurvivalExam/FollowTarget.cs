@@ -28,22 +28,22 @@ namespace SurvivalExam
         {
             Vector2 translation = Vector2.Zero;
 
-            if (target.position.Y <= transform.position.Y)
-            {
-                translation += new Vector2(0, -1);
-                currentDirection = Down;
-            }
-            if (target.position.X <= transform.position.X)
-            {
-                translation += new Vector2(-1, 0);
-                currentDirection = Left;
-            }
-            if (target.position.Y >= transform.position.Y)
+            if (target.position.Y >= transform.position.Y) //Op på skærmen
             {
                 translation += new Vector2(0, 1);
                 currentDirection = Up;
             }
-            if (target.position.X >= transform.position.X)
+            if (target.position.Y <= transform.position.Y) //Ned op skærmen
+            {
+                translation += new Vector2(0, -1);
+                currentDirection = Down;
+            }
+            if (target.position.X <= transform.position.X) //Venstre på skærmen
+            {
+                translation += new Vector2(-1, 0);
+                currentDirection = Left;
+            }
+            if (target.position.X >= transform.position.X) //Højre på skærmen
             {
                 translation += new Vector2(1, 0);
                 currentDirection = Right;
